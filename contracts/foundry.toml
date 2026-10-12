@@ -43,6 +43,14 @@ runs = 2000
 runs = 256
 depth = 64
 
+# Gas snapshot only (FOUNDRY_PROFILE=gas forge snapshot): no metadata hash in the bytecode, so `.gas-snapshot` does not
+# depend on the line endings or paths of the machine that built it. Deploys and verification keep the default profile.
+[profile.gas]
+bytecode_hash = "none"
+cbor_metadata = false
+out = "out-gas"
+cache_path = "cache-gas"
+
 [fmt]
 line_length = 120
 tab_width = 4

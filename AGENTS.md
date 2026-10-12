@@ -35,7 +35,7 @@ Rules for any coding agent working in this repository. Read `CLAUDE.md` for the 
   rises; evals are version-scoped (`docs/economics.md`, `docs/royalties.md`, `docs/license-cap.md`).
 - Never change a deployed contract except through a validated UUPS upgrade (`script/Upgrade.s.sol`, `docs/deploy-runbook.md`
   §4.6), and never send anything to mainnet without the owner.
-- Run `forge fmt`, `forge build --sizes` (each contract < 24,576 bytes), `forge test`, `forge snapshot --check` and
+- Run `forge fmt`, `forge build --sizes` (each contract < 24,576 bytes), `forge test`, `FOUNDRY_PROFILE=gas forge snapshot --check` and
   `node script/check-layouts.mjs` before committing contract changes; then regenerate the client.
 
 ## TypeScript (viem, server, web)

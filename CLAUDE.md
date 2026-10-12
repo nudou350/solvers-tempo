@@ -106,7 +106,7 @@ Contracts (`cd contracts`; Foundry 1.8.5 in `~/.foundry/bin`, add it to PATH):
 ```bash
 forge build --sizes --skip test --skip 'test/**'   # sizes must stay < 24,576 bytes (test helpers excluded)
 forge test                             # FOUNDRY_PROFILE=ci for fuzz 2000 / invariants 256 x 64
-forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz|fuzz'
+FOUNDRY_PROFILE=gas forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz|fuzz'
 node script/check-layouts.mjs          # storage layouts append-only (--write after a reviewed change)
 bash script/e2e-anvil.sh               # fresh anvil --tempo: validated deploy + sponsored flows
 ```

@@ -43,7 +43,9 @@ jobs:
         env:
           FOUNDRY_PROFILE: ci
         run: forge test
-      - name: Gas snapshot
+      - name: Gas snapshot (profile gas: no metadata hash, same numbers on any OS)
+        env:
+          FOUNDRY_PROFILE: gas
         run: forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz|fuzz'
       - name: Storage layouts (append-only)
         run: node script/check-layouts.mjs

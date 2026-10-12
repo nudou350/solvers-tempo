@@ -19,7 +19,7 @@ the only deploy workflow is manual, and pushing or creating a remote waits for t
 | Format | `forge fmt --check src script test` | formatting |
 | Build | `forge build --sizes --skip test --skip 'test/**'` | every contract under 24,576 bytes |
 | Tests | `FOUNDRY_PROFILE=ci forge test` | unit, access-control and pause matrices, ABI meta-check, fuzz (2000 runs) and invariants (256 × 64) |
-| Gas snapshot | `forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz\|fuzz'` | `.gas-snapshot` (deterministic tests only) |
+| Gas snapshot | `FOUNDRY_PROFILE=gas forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz\|fuzz'` | `.gas-snapshot` (deterministic tests only) |
 | Storage layouts | `node script/check-layouts.mjs` | UUPS storage stays append-only against `contracts/storage-layouts/*.json` |
 | End to end | `bash script/e2e-anvil.sh` | fresh `anvil --tempo`, validated deploy (`Deploy.s.sol` through `openzeppelin-foundry-upgrades`), `AcceptAdmin.s.sol`, sponsored flows with exact token movements |
 | Upgrade procedure | `bash script/upgrade-anvil.sh` | X16 on a fresh `anvil --tempo`: `Upgrade.s.sol` validate against a reference build, guards (missing reference, non-admin signer), execute on two proxies, `record-upgrade.mjs` |
