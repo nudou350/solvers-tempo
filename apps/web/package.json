@@ -1,0 +1,32 @@
+{
+  "name": "@solvers/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "node start.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "node scripts/check-messages.mjs && node --import tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@privy-io/react-auth": "^3.48.1",
+    "@solvers/api-client": "workspace:*",
+    "@solvers/chain": "workspace:*",
+    "@solvers/shared": "workspace:*",
+    "next": "^16.3.7",
+    "next-intl": "^4.14.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "viem": "^2.57.4"
+  },
+  "devDependencies": {
+    "@solvers/contracts-client": "workspace:*",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

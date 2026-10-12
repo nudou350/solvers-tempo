@@ -1,0 +1,13 @@
+{
+  "name": "solvers-tempo",
+  "displayName": "Solvers on Tempo",
+  "version": "0.1.0",
+  "domain": "solvers-tempo.wondervelop.com",
+  "port": 3018,
+  "webPort": 4018,
+  "pm2Name": "solvers-tempo-api",
+  "pm2Names": ["solvers-tempo-api", "solvers-tempo-web", "solvers-tempo-worker"],
+  "database": "solvers_tempo (PG16 :5433, pgvector)",
+  "nginxSite": "solvers-tempo",
+  "rateLimitZonePrefix": "solvers_tempo_"
+}

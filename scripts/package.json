@@ -1,0 +1,45 @@
+{
+  "name": "@solvers/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test src/lib/*.test.ts",
+    "bootstrap": "tsx src/bootstrap.ts",
+    "topup": "tsx src/topup.ts",
+    "solana:balances": "tsx src/solana-balances.ts",
+    "eval": "tsx src/eval.ts",
+    "e2e:purchase": "tsx src/e2e-purchase.ts",
+    "e2e:api": "tsx src/e2e-api.ts",
+    "e2e:full": "tsx src/e2e-full.ts",
+    "e2e:mcp": "tsx src/e2e-mcp.ts",
+    "e2e:creator": "tsx src/e2e-creator.ts",
+    "e2e:supply": "tsx src/e2e-supply.ts",
+    "e2e:pix": "tsx src/e2e-pix.ts",
+    "e2e:solana-pay": "tsx src/e2e-solana-pay.ts",
+    "e2e:transfer": "tsx src/e2e-transfer.ts",
+    "e2e:agent-pay": "tsx src/e2e-agent-pay.ts",
+    "e2e:agent-use": "tsx src/e2e-agent-use.ts",
+    "smoke:creator": "tsx src/smoke-creator.ts",
+    "smoke:catalog": "tsx src/smoke-catalog.ts",
+    "publish:test-agent": "tsx src/publish-test-agent.ts"
+  },
+  "dependencies": {
+    "@solana-program/system": "^0.15.0",
+    "@solana-program/token": "^0.17.0",
+    "@solana/kit": "^8.4.0",
+    "@solvers/api-client": "workspace:*",
+    "@solvers/chain": "workspace:*",
+    "@solvers/contracts-client": "workspace:*",
+    "@solvers/shared": "workspace:*",
+    "mppx": "^0.13.4",
+    "viem": "^2.57.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

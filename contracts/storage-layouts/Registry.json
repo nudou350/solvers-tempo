@@ -1,0 +1,254 @@
+[
+  {
+    "path": "s",
+    "slot": "0",
+    "offset": 0,
+    "type": "struct SolversRegistry.RegistryStorage"
+  },
+  {
+    "path": "s.config",
+    "slot": "0",
+    "offset": 0,
+    "type": "struct SolversRegistry.Config"
+  },
+  {
+    "path": "s.config.treasury",
+    "slot": "0",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.config.feeBps",
+    "slot": "0",
+    "offset": 20,
+    "type": "uint16"
+  },
+  {
+    "path": "s.config.platformRoyaltyBps",
+    "slot": "0",
+    "offset": 22,
+    "type": "uint16"
+  },
+  {
+    "path": "s.config.pauseFlags",
+    "slot": "0",
+    "offset": 24,
+    "type": "uint8"
+  },
+  {
+    "path": "s.limits",
+    "slot": "1",
+    "offset": 0,
+    "type": "struct SolversRegistry.Limits"
+  },
+  {
+    "path": "s.limits.minStake",
+    "slot": "1",
+    "offset": 0,
+    "type": "uint96"
+  },
+  {
+    "path": "s.limits.minPrice",
+    "slot": "1",
+    "offset": 12,
+    "type": "uint96"
+  },
+  {
+    "path": "s.token",
+    "slot": "2",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.license",
+    "slot": "3",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.credits",
+    "slot": "4",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.reviews",
+    "slot": "5",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.escrow",
+    "slot": "6",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.staking",
+    "slot": "7",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.agents",
+    "slot": "8",
+    "offset": 0,
+    "type": "mapping(bytes32 => struct SolversRegistry.Agent)"
+  },
+  {
+    "path": "s.agents[k].creator",
+    "slot": "0",
+    "offset": 0,
+    "type": "address"
+  },
+  {
+    "path": "s.agents[k].status",
+    "slot": "0",
+    "offset": 20,
+    "type": "enum AgentStatus"
+  },
+  {
+    "path": "s.agents[k].royaltyBps",
+    "slot": "0",
+    "offset": 21,
+    "type": "uint16"
+  },
+  {
+    "path": "s.agents[k].totalSales",
+    "slot": "0",
+    "offset": 23,
+    "type": "uint32"
+  },
+  {
+    "path": "s.agents[k].maxSupply",
+    "slot": "0",
+    "offset": 27,
+    "type": "uint32"
+  },
+  {
+    "path": "s.agents[k].price",
+    "slot": "1",
+    "offset": 0,
+    "type": "uint96"
+  },
+  {
+    "path": "s.agents[k].pricePerUse",
+    "slot": "1",
+    "offset": 12,
+    "type": "uint96"
+  },
+  {
+    "path": "s.agents[k].disputesLost",
+    "slot": "1",
+    "offset": 24,
+    "type": "uint32"
+  },
+  {
+    "path": "s.agents[k].index",
+    "slot": "1",
+    "offset": 28,
+    "type": "uint32"
+  },
+  {
+    "path": "s.agents[k].stake",
+    "slot": "2",
+    "offset": 0,
+    "type": "uint96"
+  },
+  {
+    "path": "s.agents[k].registeredAt",
+    "slot": "2",
+    "offset": 12,
+    "type": "uint40"
+  },
+  {
+    "path": "s.agents[k].versionAt",
+    "slot": "2",
+    "offset": 17,
+    "type": "uint40"
+  },
+  {
+    "path": "s.agents[k].versionHash",
+    "slot": "3",
+    "offset": 0,
+    "type": "bytes32"
+  },
+  {
+    "path": "s.agents[k].version",
+    "slot": "4",
+    "offset": 0,
+    "type": "string"
+  },
+  {
+    "path": "s.agents[k].metadataUri",
+    "slot": "5",
+    "offset": 0,
+    "type": "string"
+  },
+  {
+    "path": "s.agentIds",
+    "slot": "9",
+    "offset": 0,
+    "type": "bytes32[]"
+  },
+  {
+    "path": "s.evals",
+    "slot": "10",
+    "offset": 0,
+    "type": "mapping(bytes32 => mapping(bytes32 => struct Eval))"
+  },
+  {
+    "path": "s.evals[k][k].scoreBps",
+    "slot": "0",
+    "offset": 0,
+    "type": "uint16"
+  },
+  {
+    "path": "s.evals[k][k].at",
+    "slot": "0",
+    "offset": 2,
+    "type": "uint40"
+  },
+  {
+    "path": "s.evals[k][k].by",
+    "slot": "0",
+    "offset": 7,
+    "type": "address"
+  },
+  {
+    "path": "s.evals[k][k].evalHash",
+    "slot": "1",
+    "offset": 0,
+    "type": "bytes32"
+  },
+  {
+    "path": "s.reputations",
+    "slot": "11",
+    "offset": 0,
+    "type": "mapping(address => struct Reputation)"
+  },
+  {
+    "path": "s.reputations[k].purchases",
+    "slot": "0",
+    "offset": 0,
+    "type": "uint32"
+  },
+  {
+    "path": "s.reputations[k].disputesOpened",
+    "slot": "0",
+    "offset": 4,
+    "type": "uint32"
+  },
+  {
+    "path": "s.reputations[k].disputesLost",
+    "slot": "0",
+    "offset": 8,
+    "type": "uint32"
+  },
+  {
+    "path": "s.purchaseRefs",
+    "slot": "12",
+    "offset": 0,
+    "type": "mapping(bytes32 => bytes32)"
+  }
+]

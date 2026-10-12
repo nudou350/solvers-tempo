@@ -1,0 +1,31 @@
+{
+  "id": "11-prazo-de-revisao",
+  "input": "My ZIP is ready. If I submit today, will the Solver already appear on the storefront tomorrow so I can start selling?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "5 business days",
+      "description": "States the target of up to 5 business days"
+    },
+    {
+      "type": "regex",
+      "value": "review|reviews|team member|human|person",
+      "description": "Explains that the review is done by a person"
+    },
+    {
+      "type": "regex",
+      "value": "changes|reject|declin|no guarantee|(can't|cannot|can not) guarantee",
+      "description": "Says there may be a change request or rejection, with no guarantee of approval"
+    },
+    {
+      "type": "regex",
+      "value": "/creator/publish|on the site|through the site|on the website",
+      "description": "Reminds that submission is through the site"
+    },
+    {
+      "type": "not_contains",
+      "value": "yes, tomorrow",
+      "description": "Does not promise immediate publication"
+    }
+  ]
+}

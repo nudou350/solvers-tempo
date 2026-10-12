@@ -1,0 +1,336 @@
+{
+  "generic": "Something went wrong. Please try again.",
+  "api": {
+    "acceptance_unavailable": "The agreed acceptance tests for this step aren't available. Verification was stopped. Please contact support.",
+    "agent_not_listed": "This solver isn't in the catalog yet.",
+    "agent_retired": "This solver was retired by its creator.",
+    "agent_unavailable": "This solver isn't available right now (it may be suspended or retired).",
+    "already_owned": "You already have a license for this solver.",
+    "balance_sufficient": "You already have enough balance for this purchase.",
+    "cancel_not_allowed": "This can't be cancelled right now.",
+    "creator_cannot_buy": "Creators can't buy their own solver's license.",
+    "deliverable_changed": "The files in this delivery don't match what was approved, so the download was blocked. Please contact support.",
+    "faucet_cooldown": "You or your network already received test funds recently. Please try again a little later.",
+    "faucet_daily_cap": "Test funds reached today's limit. Please try again tomorrow.",
+    "files_missing": "The extracted files for this submission are no longer on the server.",
+    "forbidden": "You don't have access to this.",
+    "guarantee_limit": "You've reached your current limit for open guarantees. It grows as you make purchases in the store.",
+    "guarantee_texts_pending": "The texts of this guarantee are still being saved. Wait a moment and refresh the page.",
+    "image_invalid": "We couldn't use that image. Send a JPG, PNG or WebP file.",
+    "image_limit": "You've reached the image limit.",
+    "image_too_large": "That image is over 5 MB. Try a smaller one.",
+    "image_unavailable": "Image upload isn't available right now.",
+    "insufficient_funds": "Your balance doesn't cover this.",
+    "internal": "Something went wrong on our side. Please try again in a moment.",
+    "invalid_criterion": "Pick one of the agreed criteria. Your dispute has to point to one of the step's criteria.",
+    "invalid_delivery_days": "The delivery deadline isn't valid. Choose a number of days within the allowed range.",
+    "invalid_state": "This action isn't available in the current state. Refresh the page to see where things stand.",
+    "invite_invalid": "That invite isn't valid. Check the code you received.",
+    "invite_required": "Enter your invite code to create your creator profile.",
+    "invite_used": "This invite was already used.",
+    "license_already_reviewed": "This license was already used for a review. Each license can be used for one review only.",
+    "license_invalid": "We don't recognize this license. Refresh the page and try again. If it keeps happening, contact support.",
+    "memory_key_mismatch": "This signature doesn't match the key of your memories. Sign in again with the same account.",
+    "memory_key_required": "To see your memories, confirm the signature in your wallet.",
+    "memory_limit": "You've reached the memory limit for this solver. Delete some memories and try again.",
+    "memory_no_access": "You need access to this solver to use its memories.",
+    "memory_signature_refused": "This wallet's signature can't open your memories. Sign the request with the wallet you signed in with; smart-contract wallets can't open memories.",
+    "metadata_unchanged": "Nothing changed: the details are already up to date.",
+    "milestone_conflict": "This step was already recorded on the network with a different delivery.",
+    "no_stake_exit": "There's no deposit withdrawal in progress.",
+    "not_a_zip": "The file you sent isn't a ZIP.",
+    "not_approved": "This version hasn't been approved by the review yet.",
+    "not_found": "We couldn't find what you were looking for.",
+    "not_owner": "This license isn't in your account. Refresh the page and check your library.",
+    "not_resubmittable": "You can only resubmit a package after the reviewer asked for changes.",
+    "nothing_to_claim": "There's nothing to withdraw right now.",
+    "operation_rejected": "The network rejected this operation. Nothing was charged. Please try again.",
+    "order_bound": "This order already belongs to another purchase.",
+    "order_closed": "This order is closed. Start a new one.",
+    "ownership_conflict": "This item belongs to another account.",
+    "payload_too_large": "That file is too large.",
+    "payment_in_progress": "A payment for this is already in progress. Wait for it to finish.",
+    "pix_expired": "This Pix charge expired. Create a new one.",
+    "pix_failed": "This Pix charge failed. Create a new one.",
+    "pix_max": "That amount is above the maximum allowed for a Pix payment.",
+    "pix_min": "That amount is below the minimum allowed for a Pix payment.",
+    "pix_not_simulated": "This charge is only approved when the Pix is actually paid.",
+    "pix_pending_limit": "You already have the maximum number of open Pix charges. Pay one or wait for them to expire.",
+    "pix_provider_error": "Mercado Pago declined the Pix charge. Please try again in a moment.",
+    "pix_simulate_disabled": "Payment simulation is turned off.",
+    "pix_unavailable": "Pix isn't available right now.",
+    "platform_agent_not_for_sale": "This solver is included with the platform and isn't sold separately.",
+    "platform_paused": "Purchases are paused for a moment. Please try again shortly.",
+    "price_changed": "The solver's price changed. Check the new amount and confirm again.",
+    "price_in_review": "This solver is under review and isn't for sale right now. Please try again later.",
+    "price_too_low": "The price is too low. Pick an amount equal to or above the minimum and try again.",
+    "privy_no_email": "Your sign-in account has no e-mail to link.",
+    "privy_wallet_mismatch": "This wallet isn't the one linked to your e-mail sign-in. Sign in again.",
+    "profile_required": "Save your creator profile first.",
+    "publication_blocked": "This solver is locked on the network. It's suspended or registered by another account. Contact the team.",
+    "rate_limited": "Too many attempts. Wait a minute and try again.",
+    "review_required": "Publish your review before attaching photos.",
+    "royalty_changed": "The transfer fee changed. Check the new amount and confirm again.",
+    "royalty_locked": "The creator's share can't change anymore: this solver already has sales.",
+    "royalty_too_high": "That share is above the allowed limit.",
+    "self_review": "You can't approve your own submission. Another admin has to review it.",
+    "session_outdated": "This session is out of date because the solver was updated. Start a new one.",
+    "signature_not_for_agent": "This transaction isn't for this solver.",
+    "simulation_failed": "The network would refuse this operation, so nothing was sent. Refresh the page and try again.",
+    "sold_out": "All licenses for this solver have been sold. You weren't charged.",
+    "stake_exit_extended": "The deposit withdrawal was already extended.",
+    "submission_state": "This version isn't waiting for your signature right now.",
+    "supply_unchanged": "Nothing changed: the license limit is already that number.",
+    "telegram_unavailable": "Telegram linking isn't available right now. Try again in a few minutes or contact the team.",
+    "too_many_codes": "You've generated too many codes in the last hour. Try again later.",
+    "too_many_intents": "Too many purchases started at once. Finish one or wait a moment.",
+    "too_many_open_orders": "You have too many open orders. Finish one or wait for them to expire.",
+    "too_many_pending": "You already have submissions in progress. Wait for the review before sending another one.",
+    "too_many_per_day": "You've reached the daily limit of submissions. Try again tomorrow.",
+    "transaction_failed": "The network didn't confirm the transaction. Nothing was charged. Please try again.",
+    "unauthorized": "Your session expired. Sign in again to continue.",
+    "unconfirmed": "Your transaction was sent, but we couldn't confirm it yet. Wait a moment and check My account before trying again.",
+    "unsupported_media_type": "Unsupported file type.",
+    "version_already_published": "This version isn't newer than the one already published. Ask the creator to bump the version.",
+    "wrong_network": "This transaction is for another network. Refresh the page and try again.",
+    "wrong_step": "That isn't the right step right now. Refresh the page to see what's next."
+  },
+  "contract": {
+    "SoldOut": "All licenses allowed for this solver have been sold. You weren't charged.",
+    "PriceChanged": "The price changed. Check the new price and confirm again.",
+    "PriceTooLow": "The amount is below the minimum purchase.",
+    "DuplicatePurchase": "This purchase was already completed. Check your library.",
+    "SelfPurchase": "Creators can't buy their own solver.",
+    "SelfReview": "Creators can't review their own solver.",
+    "AgentNotActive": "This solver isn't available for sale right now.",
+    "AgentNotFound": "This solver isn't registered on the network yet.",
+    "InsufficientStake": "The creator's deposit is below the minimum, so sales of this solver are paused.",
+    "PayPerUseDisabled": "This solver doesn't sell pay-per-use credits.",
+    "BuyerNotEligible": "This wallet lost too many guarantee disputes to open a new guarantee.",
+    "Paused": "The platform paused this operation for a moment. Please try again later.",
+    "TransfersPaused": "License transfers are paused right now. Please try again later.",
+    "RoyaltyNotPaid": "The transfer fee couldn't be paid. Check that your balance covers it.",
+    "RoyaltyChanged": "The transfer fee changed. Check the new amount and confirm again.",
+    "NoLicense": "You need a license or purchased credits to review this solver.",
+    "LicenseAlreadyReviewed": "This license was already used for a review by another account.",
+    "InvalidRating": "The rating must be between 1 and 5.",
+    "NoCredits": "You don't have enough credits.",
+    "NotBuyer": "Only the buyer can do this.",
+    "InvalidMilestoneStatus": "This step of the guarantee can't do that in its current state. Refresh the page.",
+    "AutoReleaseNotReached": "The review window of this step is still open.",
+    "DisputeWindowClosed": "The window to contest this step has closed.",
+    "DeliveryDeadlineNotReached": "The delivery deadline hasn't passed yet.",
+    "DisputeSlaNotReached": "A dispute is only refunded automatically after 7 days without a decision.",
+    "StaleDisputeNeedsJudgment": "This step passed its tests, so only the platform can decide the dispute.",
+    "NothingToClaim": "There's nothing to withdraw right now.",
+    "RecipientBlocked": "Your wallet's settings block this payment. Change them and try again.",
+    "NotCreator": "Only the solver's creator can do this.",
+    "AccessControlUnauthorizedAccount": "This account isn't allowed to do this.",
+    "InsufficientAllowance": "The payment wasn't authorized for the full amount. Please try again.",
+    "InsufficientBalance": "Your balance doesn't cover this.",
+    "PolicyForbids": "The payment token doesn't allow this transfer.",
+    "ContractPaused": "Payments with this token are paused right now. Please try again later.",
+    "InvalidRecipient": "That address can't receive this payment.",
+    "PermitExpired": "The signed authorization expired. Please sign again.",
+    "InvalidSignature": "The signed authorization isn't valid. Please sign again."
+  },
+  "tx": {
+    "unconfirmed": {
+      "title": "We can't confirm it yet",
+      "text": "Your transaction was sent, but we couldn't confirm it yet. Wait a moment and check your library before trying again."
+    },
+    "insufficient_funds": {
+      "title": "Not enough balance",
+      "text": "Your balance doesn't cover this purchase."
+    },
+    "insufficient_funds_amounts": {
+      "title": "Not enough balance",
+      "text": "You have {balance} and need {needed}."
+    },
+    "price_changed": {
+      "title": "The solver's price changed",
+      "text": "The solver's price changed. Check the new amount and confirm again."
+    },
+    "sold_out": {
+      "title": "Sold out",
+      "text": "All licenses allowed for this solver have been sold. You weren't charged."
+    },
+    "license_already_reviewed": {
+      "title": "This license was already used for a review",
+      "text": "This license was already used to review the solver, and each license can be used for one review only. The solver's rating still applies to you."
+    },
+    "guarantee_limit": {
+      "title": "Guarantee limit reached",
+      "text": "You've reached your current limit for open guarantees. It grows as you make purchases in the store."
+    },
+    "submission_state": {
+      "title": "This submission isn't waiting for your confirmation",
+      "text": "Refresh the page to see which step it's on."
+    },
+    "not_approved": {
+      "title": "This version hasn't been approved yet",
+      "text": "Confirmation only opens after the team approves it."
+    },
+    "wrong_step": {
+      "title": "That isn't the right step right now",
+      "text": "Refresh the page: it shows the step that's left."
+    },
+    "publication_blocked": {
+      "title": "This solver is locked on the network",
+      "text": "It's suspended or registered by another account. Contact the team."
+    },
+    "rate_limited": {
+      "title": "Too many attempts",
+      "text": "Wait a minute and try again."
+    },
+    "unauthorized": {
+      "title": "Your session expired",
+      "text": "Sign in again to continue."
+    },
+    "faucet_unavailable": {
+      "title": "Test funds aren't available right now",
+      "text": "Please try again a little later."
+    },
+    "invalid_criterion": {
+      "title": "Pick one of the agreed criteria",
+      "text": "The dispute has to point to one of the step's criteria."
+    },
+    "transaction_failed": {
+      "title": "The transaction failed on the network",
+      "text": "Nothing was charged. Try again and we'll build a new one."
+    },
+    "bad_request": {
+      "title": "We couldn't complete that",
+      "text": "Check the details and try again."
+    },
+    "server_error": {
+      "title": "The server didn't respond well",
+      "text": "Please try again in a moment."
+    },
+    "cancelled": {
+      "title": "Signing cancelled",
+      "text": "You weren't charged."
+    },
+    "unknown": {
+      "title": "Something went wrong",
+      "text": "Please try again."
+    },
+    "price_changed_amount": {
+      "title": "The solver's price changed",
+      "text": "The solver's price is now {now}. Check the new amount and confirm again."
+    },
+    "royalty_changed": {
+      "title": "The transfer fee changed",
+      "text": "The transfer fee changed. Check the new amount and confirm again."
+    },
+    "paused": {
+      "title": "Paused for a moment",
+      "text": "The platform paused this operation. You weren't charged. Please try again later."
+    },
+    "contract_rejected": {
+      "title": "The network refused this operation",
+      "text": "The network refused this operation and nothing was charged. Refresh the page and try again."
+    },
+    "offline": {
+      "title": "No connection",
+      "text": "We couldn't reach the server. Check your connection and try again."
+    },
+    "sponsor_declined": {
+      "title": "We couldn't cover the network fee",
+      "text": "The platform couldn't pay the network fee for this operation, so nothing was sent and nothing was charged. Refresh the page and try again later."
+    },
+    "wrong_network": {
+      "title": "Wrong network",
+      "text": "This operation was prepared for another network. Refresh the page and try again."
+    },
+    "privy_chain_mismatch": {
+      "title": "E-mail wallet set up for another network",
+      "text": "This version of the site is set up for a different network than the server, so nothing was signed. Please contact support."
+    },
+    "wallet_changed": {
+      "title": "Your wallet changed",
+      "text": "The wallet connected now isn't the one you signed in with. Sign out and sign in again."
+    },
+    "wallet_not_connected": {
+      "title": "Wallet not connected",
+      "text": "Sign in again to connect your wallet."
+    },
+    "login_failed": {
+      "title": "Couldn't sign in",
+      "text": "The sign-in didn't finish. Please try again."
+    },
+    "login_timeout": {
+      "title": "Sign-in took too long",
+      "text": "Please try again."
+    },
+    "login_interrupted": {
+      "title": "Sign-in interrupted",
+      "text": "The page changed before the sign-in finished. Please try again."
+    },
+    "login_loading": {
+      "title": "Sign-in is still loading",
+      "text": "Wait a second and try again."
+    },
+    "create_wallet_failed": {
+      "title": "We couldn't create your wallet",
+      "text": "Please try again in a moment."
+    },
+    "dev_wallet_mainnet": {
+      "title": "Test wallet not allowed here",
+      "text": "The test wallet only works on test networks. Sign in with your e-mail."
+    },
+    "dev_wallet_disabled": {
+      "title": "Sign-in isn't set up",
+      "text": "This site has no sign-in method configured yet."
+    },
+    "privy_not_configured": {
+      "title": "E-mail sign-in isn't set up",
+      "text": "This site has no e-mail sign-in configured. Use the test wallet on test networks."
+    },
+    "network_unknown": {
+      "title": "We couldn't confirm the network",
+      "text": "Please try again in a moment."
+    },
+    "session_not_created": {
+      "title": "The session wasn't created",
+      "text": "Please try again."
+    }
+  },
+  "network": {
+    "mainnet": "Tempo",
+    "testnet": "Tempo test network",
+    "local": "Local test network"
+  },
+  "image": {
+    "unreadable": "We couldn't read this image. Try another photo in JPG, PNG or WebP.",
+    "noCanvas": "Your browser couldn't prepare the image. Try a different browser.",
+    "tooLarge": "This image is still too large even after shrinking it. Try a smaller photo or one with less detail."
+  },
+  "eval": {
+    "short": "{score}% in internal tests",
+    "none": "No reviews yet",
+    "note": "Internal team test (automated checks), not an independent verification."
+  },
+  "differentiators": {
+    "memory": {
+      "label": "Memory",
+      "text": "Learns your preferences and remembers you in the next conversation."
+    },
+    "escalation": {
+      "label": "Creator support",
+      "text": "If it gets stuck, you can ask the creator for help."
+    },
+    "liveData": {
+      "label": "Live data",
+      "text": "Time-sensitive knowledge kept current, with its source and date."
+    },
+    "tool": {
+      "label": "Built-in tool",
+      "text": "Runs a tool on the server, in addition to chatting."
+    },
+    "verifier": {
+      "label": "Checked results",
+      "text": "The deliverable is checked automatically by tests."
+    }
+  }
+}

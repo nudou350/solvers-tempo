@@ -1,0 +1,53 @@
+# Contracts CI: formatting, build sizes, tests (ci profile: fuzz 2000, invariants 256 x 64), deterministic gas
+# snapshot, storage-layout guard (append-only), ABI meta-check (inside the tests), the anvil --tempo end-to-end run
+# (deploy with upgrade-safety validation through openzeppelin-foundry-upgrades) and the upgrade procedure of X16
+# (script/Upgrade.s.sol: validateUpgrade against a reference build, guards, execute, record) on a fresh anvil.
+# No deployment to any public network happens here. The generated-client sync check (generate:check) runs in ci.yml,
+# which also triggers on deployments/ and packages/contracts-client/ changes and has the pnpm workspace installed.
+name: contracts
+
+on:
+  pull_request:
+    paths: ["contracts/**", ".github/workflows/contracts.yml"]
+  push:
+    branches: [master]
+    paths: ["contracts/**", ".github/workflows/contracts.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contracts
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: Install Foundry (Tempo support is in the upstream release)
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.5
+      - name: Format
+        run: forge fmt --check src script test
+      - name: Build (contract sizes must stay under 24,576 bytes)
+        run: forge build --sizes --skip test
+      - name: Tests (ci profile)
+        env:
+          FOUNDRY_PROFILE: ci
+        run: forge test
+      - name: Gas snapshot
+        run: forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz|fuzz'
+      - name: Storage layouts (append-only)
+        run: node script/check-layouts.mjs
+      - name: End-to-end on anvil --tempo (deploy with upgrade validation + sponsored flows)
+        run: bash script/e2e-anvil.sh
+      - name: Upgrade procedure on anvil --tempo (X16)
+        run: bash script/upgrade-anvil.sh

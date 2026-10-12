@@ -1,0 +1,31 @@
+{
+  "id": "08-zip-sem-arquivos",
+  "input": "I'm using the free ChatGPT and it doesn't generate files to download. How do I assemble my Solver's ZIP?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "block|one by one|file by file|each file",
+      "description": "Delivers the files in blocks, in order"
+    },
+    {
+      "type": "regex",
+      "value": "folder",
+      "description": "Explains how to create the folder"
+    },
+    {
+      "type": "regex",
+      "value": "a single folder|one folder|1 folder|whole folder|entire folder|root folder|zip the folder|compress the folder",
+      "description": "Explains that the ZIP has a single root folder and that the whole folder is zipped"
+    },
+    {
+      "type": "regex",
+      "value": "ZIP|compress",
+      "description": "Explains how to compress"
+    },
+    {
+      "type": "regex",
+      "value": "site (validates|will validate)|validate[sd]? (it )?again|validation on (upload|submission)|re-?validat",
+      "description": "Says the site validates again on submission"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "01-replace-with-the-case-name",
+  "input": "REPLACE: a buyer's request, in their own words (one to three sentences, with a number or a real detail)",
+  "checks": [
+    {
+      "type": "contains",
+      "value": "REPLACE: a term or rule that only someone who followed the method would say",
+      "description": "Content: uses the method's rule"
+    },
+    {
+      "type": "regex",
+      "value": "source|confirm|official",
+      "description": "Behavior: cites the source or tells the user to confirm on the official site"
+    },
+    {
+      "type": "regex",
+      "value": "\\d+\\s*(days|months)",
+      "description": "Content: gives a deadline in numbers (backslashes are doubled in JSON)"
+    },
+    {
+      "type": "not_contains",
+      "value": "guaranteed result",
+      "description": "Anti: does not promise a result"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "10-poucos-diferenciais",
+  "input": "My Solver is basically a well-written text with my step-by-step, with no knowledge base and no questions to the user. Can it be approved?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "2 of 5|two differentiators|at least (2|two)",
+      "description": "Explains the criterion of at least 2 proven differentiators"
+    },
+    {
+      "type": "regex",
+      "value": "memory|calibrat",
+      "description": "Suggests memory or calibration as a differentiator"
+    },
+    {
+      "type": "regex",
+      "value": "knowledge|source|dated",
+      "description": "Suggests living knowledge, with source and date"
+    },
+    {
+      "type": "regex",
+      "value": "skill|paste (it )?(in|into) (a|the) chat|ordinary text|plain text|regular text",
+      "description": "Explains that a text alone is what an ordinary skill already does"
+    },
+    {
+      "type": "not_contains",
+      "value": "approval is guaranteed",
+      "description": "Does not promise approval"
+    }
+  ]
+}

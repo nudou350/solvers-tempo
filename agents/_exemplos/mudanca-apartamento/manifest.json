@@ -1,0 +1,195 @@
+{
+  "specVersion": 1,
+  "slug": "mudanca-apartamento",
+  "name": "Apartment Move",
+  "tagline": "Plan your apartment move: deadlines, movers, address changes and move-out inspection",
+  "description": "Plans your apartment move from the first quote to the last change-of-address notice. You give the date, the size of your home, whether you rent or own and who is helping; the Solver builds a deadline-based schedule, helps you compare moving company quotes with the right questions, and hands you a list of who to notify about your new address plus a photo-based move-out inspection walkthrough. It is built for people moving apartments in Brazil without professional help: the address-change list (Detran, TSE, Receita Federal, Correios, utilities) and the rental notes (Brazilian tenancy law) are Brazil-specific. What it does not do: it is not legal advice (rental contracts, security deposits and penalties depend on your contract and local law; check with your landlord, the rental agency or a lawyer), it does not recommend companies or guarantee prices, it does not cover international or office moves, and it does not fill in forms for you. Deadlines and rules of agencies and utility companies change: the Solver points out what to check on each one's official website.",
+  "category": "Dia a dia",
+  "version": "1.0.0",
+  "usesMemory": true,
+  "creator": {
+    "id": "marina-mudancas",
+    "name": "Marina",
+    "bio": "I have moved apartments three times (two rentals, one owned) and helped friends move. The knowledge comes from my own experience, not from a professional background in the field."
+  },
+  "terms": {
+    "rightsConfirmed": true,
+    "sourcesListed": true
+  },
+  "requirements": [
+    {
+      "type": "client",
+      "label": "Claude, ChatGPT or Claude Code",
+      "key": "any"
+    }
+  ],
+  "packageContents": [
+    "4-step method with checklists",
+    "Knowledge base from the creator's own experience and public websites, with dates and verification",
+    "Ready-made templates: schedule, mover comparison, address-change notices and move-out inspection"
+  ],
+  "searchPhrases": [
+    "I am moving apartments and do not know where to start",
+    "moving checklist by deadline",
+    "how to hire a moving company",
+    "what to ask a moving company before signing",
+    "who to notify when I change address",
+    "move-out inspection for a rented apartment",
+    "how to prepare to hand back a rented apartment",
+    "moving schedule for the next 30 days",
+    "compare moving quotes",
+    "how to pack boxes and make a moving inventory",
+    "change of address checklist for a move in Brazil"
+  ],
+  "differentiators": [
+    "liveData",
+    "memory"
+  ],
+  "escalation": {
+    "enabled": false
+  },
+  "steps": [
+    {
+      "file": "steps/01-levantar-a-situacao.md",
+      "title": "Assess your move",
+      "gate": [
+        "Date (or weeks until the move) confirmed with the user",
+        "Current home situation (rented, owned or family-owned) and destination noted",
+        "Volume and who helps defined in ranges",
+        "Move summary sheet shown to and approved by the user"
+      ]
+    },
+    {
+      "file": "steps/02-montar-o-cronograma.md",
+      "title": "Build the schedule by deadline",
+      "gate": [
+        "Deadline windows with real dates calculated from the move date",
+        "Every task has an owner and a due date",
+        "3 critical tasks marked with the reason",
+        "Schedule adjusted to the profile (home, volume and help) and checked by the user"
+      ]
+    },
+    {
+      "file": "steps/03-contratar-a-transportadora.md",
+      "title": "Hire the moving company",
+      "gate": [
+        "A single written quote request with date, addresses (neighborhood and city), floors and large items",
+        "At least 2 quotes compared in the same format, or a decision not to hire a registered company",
+        "Comparison shows what each quote includes and excludes, using the amounts provided by the user",
+        "Insurance, cancellation and written confirmation checked before signing"
+      ]
+    },
+    {
+      "file": "steps/04-fechar-burocracias-e-vistoria.md",
+      "title": "Close the paperwork and the move-out inspection",
+      "gate": [
+        "Address-change list filled in with what, who and by when, each deadline marked to check at the official source",
+        "Move-out inspection carried out with photos and meter readings, or marked not applicable (owned home)",
+        "Move-day and following-week checklists delivered to the user",
+        "Reminder to check official sources given to the user, without legal advice"
+      ]
+    }
+  ],
+  "knowledge": {
+    "updatedAt": "2026-10-02",
+    "reviewEveryDays": 90,
+    "sources": [
+      "The creator's own experience of three apartment moves",
+      "Official websites of utility companies, banks and public agencies in Brazil (generic lookup, to be verified case by case)"
+    ]
+  },
+  "templates": [
+    {
+      "name": "cronograma-de-mudanca",
+      "path": "templates/cronograma-de-mudanca.md",
+      "title": "Moving schedule by deadline",
+      "description": "Deadline windows with tasks, owner and a done checkbox"
+    },
+    {
+      "name": "comparativo-de-transportadoras",
+      "path": "templates/comparativo-de-transportadoras.md",
+      "title": "Moving company comparison",
+      "description": "Table to compare quotes in the same format, showing what is included and what is not"
+    },
+    {
+      "name": "lista-de-avisos-de-endereco",
+      "path": "templates/lista-de-avisos-de-endereco.md",
+      "title": "Change-of-address notice list",
+      "description": "Who to notify, by when and how, with each deadline to check at the official source"
+    },
+    {
+      "name": "checklist-de-vistoria-de-saida",
+      "path": "templates/checklist-de-vistoria-de-saida.md",
+      "title": "Move-out inspection checklist",
+      "description": "Photos, meters and records to hand back a rented apartment"
+    }
+  ],
+  "onboarding": {
+    "questions": [
+      {
+        "id": "situacao_imovel",
+        "ask": "Is the apartment you are leaving rented, owned or a family member's?",
+        "why": "If it is rented, the notice period and the move-out inspection are added to the list",
+        "options": [
+          "Rented",
+          "Owned",
+          "Family member's"
+        ]
+      },
+      {
+        "id": "volume",
+        "ask": "How much stuff do you have to move?",
+        "why": "Volume changes the vehicle size, the number of helpers and the packing tasks",
+        "options": [
+          "Just the essentials",
+          "A full apartment",
+          "A lot of stuff or large items"
+        ]
+      },
+      {
+        "id": "quem_ajuda",
+        "ask": "Who is going to help with the move?",
+        "why": "It changes the schedule tasks and whether it is worth quoting a company with packing",
+        "options": [
+          "Friends and family",
+          "I hire a company only to transport",
+          "I hire a company with packing"
+        ]
+      },
+      {
+        "id": "ja_mudou",
+        "ask": "Have you organized a move before?",
+        "why": "It sets how much I explain: first-timers get the terms explained",
+        "options": [
+          "First time",
+          "I have moved once or twice",
+          "I move often"
+        ]
+      }
+    ]
+  },
+  "guarantee": {
+    "available": false,
+    "defaultCriteria": []
+  },
+  "pricing": {
+    "priceUsdc": 9,
+    "royaltyBps": 0
+  },
+  "trial": {
+    "uses": 3,
+    "steps": 2,
+    "searches": 3,
+    "tools": {},
+    "templates": [],
+    "summary": "The first two steps: assess your move and build the schedule by deadline",
+    "lockedSummary": "Mover comparison, change-of-address notices and the move-out inspection walkthrough"
+  },
+  "versions": [
+    {
+      "version": "1.0.0",
+      "releasedAt": "2026-10-02",
+      "notes": "First release"
+    }
+  ]
+}

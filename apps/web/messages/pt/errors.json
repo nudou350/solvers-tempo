@@ -1,0 +1,336 @@
+{
+  "generic": "Algo deu errado. Tente de novo.",
+  "api": {
+    "acceptance_unavailable": "A bateria de aceite combinada para esta etapa não está disponível. A verificação foi interrompida; fale com o suporte.",
+    "agent_not_listed": "Este especialista ainda não está disponível no catálogo.",
+    "agent_retired": "Este especialista foi aposentado pelo criador.",
+    "agent_unavailable": "Este especialista não está disponível agora (pode estar suspenso ou aposentado).",
+    "already_owned": "Você já tem a licença deste especialista.",
+    "balance_sufficient": "Você já tem saldo suficiente para esta compra.",
+    "cancel_not_allowed": "Não dá para cancelar isto agora.",
+    "creator_cannot_buy": "O criador do especialista não pode comprar a própria licença.",
+    "deliverable_changed": "Os arquivos desta entrega não conferem com o que foi aprovado, então o download foi bloqueado. Fale com o suporte.",
+    "faucet_cooldown": "Você (ou a sua rede) já recebeu fundos de teste há pouco. Tente de novo daqui a pouco.",
+    "faucet_daily_cap": "Os fundos de teste atingiram o limite de hoje. Tente de novo amanhã.",
+    "files_missing": "Os arquivos extraídos desta submissão não existem mais no servidor.",
+    "forbidden": "Você não tem acesso a isto.",
+    "guarantee_limit": "Você atingiu o limite atual de garantias abertas. Ele aumenta conforme você faz compras na loja.",
+    "guarantee_texts_pending": "Os textos desta garantia ainda estão sendo salvos. Aguarde um instante e atualize a página.",
+    "image_invalid": "Não deu para usar esta imagem. Envie um arquivo JPG, PNG ou WebP.",
+    "image_limit": "Você atingiu o limite de imagens.",
+    "image_too_large": "A imagem passa de 5 MB. Tente uma menor.",
+    "image_unavailable": "O envio de imagens não está disponível agora.",
+    "insufficient_funds": "Seu saldo não cobre isto.",
+    "internal": "Algo deu errado do nosso lado. Tente de novo em instantes.",
+    "invalid_criterion": "Escolha um dos critérios combinados. A contestação precisa apontar um dos critérios da etapa.",
+    "invalid_delivery_days": "O prazo de entrega não é válido. Escolha um número de dias dentro do limite permitido.",
+    "invalid_state": "Esta ação não está disponível no estado atual. Atualize a página para ver em que pé está.",
+    "invite_invalid": "Convite inválido. Confira o código que você recebeu.",
+    "invite_required": "Informe o código de convite para criar seu perfil de criador.",
+    "invite_used": "Este convite já foi usado.",
+    "license_already_reviewed": "Esta licença já foi usada numa avaliação, e cada licença serve para uma avaliação só.",
+    "license_invalid": "Não reconhecemos esta licença. Atualize a página e tente de novo. Se continuar, fale com o suporte.",
+    "memory_key_mismatch": "Esta assinatura não confere com a chave das suas memórias. Entre de novo com a mesma conta.",
+    "memory_key_required": "Para ver suas memórias, confirme a assinatura na carteira.",
+    "memory_limit": "Você atingiu o limite de memórias deste especialista. Apague algumas e tente de novo.",
+    "memory_no_access": "Você precisa ter acesso a este especialista para usar as memórias dele.",
+    "memory_signature_refused": "A assinatura desta carteira não abre suas memórias. Assine com a carteira com que você entrou; carteiras de contrato inteligente não abrem memórias.",
+    "metadata_unchanged": "Nada mudou: os dados já estão atualizados.",
+    "milestone_conflict": "Esta etapa já foi registrada na rede com outra entrega.",
+    "no_stake_exit": "Não há retirada de depósito em andamento.",
+    "not_a_zip": "O arquivo enviado não é um ZIP.",
+    "not_approved": "Esta versão ainda não foi aprovada pela revisão.",
+    "not_found": "Não encontramos o que você procurava.",
+    "not_owner": "Esta licença não é da sua conta. Atualize a página e confira sua biblioteca.",
+    "not_resubmittable": "Só dá para reenviar um pacote em que o revisor pediu mudanças.",
+    "nothing_to_claim": "Não há nada para sacar agora.",
+    "operation_rejected": "A rede recusou esta operação. Nada foi cobrado. Tente de novo.",
+    "order_bound": "Este pedido já pertence a outra compra.",
+    "order_closed": "Este pedido foi encerrado. Comece outro.",
+    "ownership_conflict": "Este item pertence a outra conta.",
+    "payload_too_large": "Este arquivo é grande demais.",
+    "payment_in_progress": "Já há um pagamento disto em andamento. Aguarde terminar.",
+    "pix_expired": "Esta cobrança Pix expirou; crie outra.",
+    "pix_failed": "Esta cobrança Pix falhou; crie outra.",
+    "pix_max": "Este valor passa do máximo permitido por Pix.",
+    "pix_min": "Este valor está abaixo do mínimo permitido por Pix.",
+    "pix_not_simulated": "Esta cobrança só é aprovada quando o Pix for pago de verdade.",
+    "pix_pending_limit": "Você já tem o máximo de cobranças Pix em aberto. Pague ou espere expirarem.",
+    "pix_provider_error": "O Mercado Pago recusou a cobrança Pix. Tente de novo em instantes.",
+    "pix_simulate_disabled": "A simulação de pagamento está desativada.",
+    "pix_unavailable": "O Pix não está disponível agora.",
+    "platform_agent_not_for_sale": "Este especialista já vem com a plataforma e não é vendido separadamente.",
+    "platform_paused": "As compras estão pausadas por um momento. Tente de novo em instantes.",
+    "price_changed": "O preço do especialista mudou. Confira o novo valor e confirme de novo.",
+    "price_in_review": "Este especialista está em revisão e não está à venda no momento. Tente de novo mais tarde.",
+    "price_too_low": "O preço está baixo demais. Escolha um valor igual ou maior que o mínimo e tente de novo.",
+    "privy_no_email": "A sua conta de login não tem e-mail para vincular.",
+    "privy_wallet_mismatch": "Esta carteira não é a vinculada ao seu login por e-mail. Entre de novo.",
+    "profile_required": "Salve o seu cadastro de criador antes.",
+    "publication_blocked": "Este especialista está bloqueado na rede. Ele está suspenso ou registrado por outra conta. Fale com a equipe.",
+    "rate_limited": "Muitas tentativas. Aguarde um minuto e tente de novo.",
+    "review_required": "Publique a sua avaliação antes de anexar fotos.",
+    "royalty_changed": "A taxa de transferência mudou. Confira o novo valor e confirme de novo.",
+    "royalty_locked": "A parte do criador não pode mais mudar: este especialista já tem vendas.",
+    "royalty_too_high": "Essa parte passa do limite permitido.",
+    "self_review": "Você não pode aprovar o seu próprio envio: outro administrador precisa revisá-lo.",
+    "session_outdated": "Esta sessão ficou desatualizada porque o especialista foi atualizado. Abra uma nova.",
+    "signature_not_for_agent": "Esta transação não é deste especialista.",
+    "simulation_failed": "A rede recusaria esta operação, então nada foi enviado. Atualize a página e tente de novo.",
+    "sold_out": "Todas as licenças deste especialista já foram vendidas. Nada foi cobrado.",
+    "stake_exit_extended": "A retirada do depósito já foi prorrogada.",
+    "submission_state": "Esta versão não está esperando a sua assinatura agora.",
+    "supply_unchanged": "Nada mudou: o limite de licenças já é esse número.",
+    "telegram_unavailable": "A vinculação pelo Telegram está indisponível agora. Tente de novo em alguns minutos ou fale com a equipe.",
+    "too_many_codes": "Você já gerou muitos códigos na última hora. Tente de novo mais tarde.",
+    "too_many_intents": "Muitas compras iniciadas ao mesmo tempo. Termine uma ou aguarde um instante.",
+    "too_many_open_orders": "Você tem pedidos demais em aberto. Termine um ou espere expirarem.",
+    "too_many_pending": "Você já tem envios em andamento. Aguarde a revisão antes de enviar outro.",
+    "too_many_per_day": "Limite de envios por dia atingido. Tente de novo amanhã.",
+    "transaction_failed": "A rede não confirmou a transação. Nada foi cobrado. Tente de novo.",
+    "unauthorized": "Sua sessão expirou. Entre de novo para continuar.",
+    "unconfirmed": "Sua transação foi enviada, mas ainda não conseguimos confirmar. Aguarde um instante e confira em Minha conta antes de tentar de novo.",
+    "unsupported_media_type": "Tipo de arquivo não aceito.",
+    "version_already_published": "Esta versão não é maior que a já publicada. Peça ao criador para subir a versão.",
+    "wrong_network": "Esta transação é de outra rede. Atualize a página e tente de novo.",
+    "wrong_step": "Este não é o passo certo agora. Atualize a página para ver o que falta."
+  },
+  "contract": {
+    "SoldOut": "Todas as licenças permitidas para este especialista já foram vendidas. Nada foi cobrado.",
+    "PriceChanged": "O preço mudou. Confira o novo preço e confirme de novo.",
+    "PriceTooLow": "O valor está abaixo da compra mínima.",
+    "DuplicatePurchase": "Esta compra já foi concluída. Confira a sua biblioteca.",
+    "SelfPurchase": "O criador não pode comprar o próprio especialista.",
+    "SelfReview": "O criador não pode avaliar o próprio especialista.",
+    "AgentNotActive": "Este especialista não está à venda agora.",
+    "AgentNotFound": "Este especialista ainda não está registrado na rede.",
+    "InsufficientStake": "O depósito do criador está abaixo do mínimo, então as vendas deste especialista estão pausadas.",
+    "PayPerUseDisabled": "Este especialista não vende créditos por uso.",
+    "BuyerNotEligible": "Esta carteira perdeu contestações demais para abrir uma nova garantia.",
+    "Paused": "A plataforma pausou esta operação por um momento. Tente de novo mais tarde.",
+    "TransfersPaused": "As transferências de licença estão pausadas agora. Tente de novo mais tarde.",
+    "RoyaltyNotPaid": "Não deu para pagar a taxa de transferência. Confira se o seu saldo cobre o valor.",
+    "RoyaltyChanged": "A taxa de transferência mudou. Confira o novo valor e confirme de novo.",
+    "NoLicense": "Você precisa de uma licença ou de créditos comprados para avaliar este especialista.",
+    "LicenseAlreadyReviewed": "Esta licença já foi usada numa avaliação por outra conta.",
+    "InvalidRating": "A nota precisa ser de 1 a 5.",
+    "NoCredits": "Você não tem créditos suficientes.",
+    "NotBuyer": "Só quem comprou pode fazer isto.",
+    "InvalidMilestoneStatus": "Esta etapa da garantia não permite isto no estado atual. Atualize a página.",
+    "AutoReleaseNotReached": "A janela de revisão desta etapa ainda está aberta.",
+    "DisputeWindowClosed": "A janela para contestar esta etapa já fechou.",
+    "DeliveryDeadlineNotReached": "O prazo de entrega ainda não passou.",
+    "DisputeSlaNotReached": "A contestação só é reembolsada automaticamente depois de 7 dias sem decisão.",
+    "StaleDisputeNeedsJudgment": "Esta etapa passou nos testes, então só a plataforma pode decidir a contestação.",
+    "NothingToClaim": "Não há nada para sacar agora.",
+    "RecipientBlocked": "As configurações da sua carteira bloqueiam este pagamento. Ajuste-as e tente de novo.",
+    "NotCreator": "Só o criador do especialista pode fazer isto.",
+    "AccessControlUnauthorizedAccount": "Esta conta não tem permissão para fazer isto.",
+    "InsufficientAllowance": "O pagamento não foi autorizado pelo valor completo. Tente de novo.",
+    "InsufficientBalance": "Seu saldo não cobre isto.",
+    "PolicyForbids": "O token de pagamento não permite esta transferência.",
+    "ContractPaused": "Os pagamentos com este token estão pausados agora. Tente de novo mais tarde.",
+    "InvalidRecipient": "Esse endereço não pode receber este pagamento.",
+    "PermitExpired": "A autorização assinada expirou. Assine de novo.",
+    "InvalidSignature": "A autorização assinada não é válida. Assine de novo."
+  },
+  "tx": {
+    "unconfirmed": {
+      "title": "Ainda não conseguimos confirmar",
+      "text": "Sua transação foi enviada, mas ainda não conseguimos confirmar. Aguarde um instante e confira sua biblioteca antes de tentar de novo."
+    },
+    "insufficient_funds": {
+      "title": "Saldo insuficiente",
+      "text": "Seu saldo não cobre esta compra."
+    },
+    "insufficient_funds_amounts": {
+      "title": "Saldo insuficiente",
+      "text": "Você tem {balance} e precisa de {needed}."
+    },
+    "price_changed": {
+      "title": "O preço do especialista mudou",
+      "text": "O preço do especialista mudou. Confira o novo valor e confirme de novo."
+    },
+    "sold_out": {
+      "title": "Esgotado",
+      "text": "Todas as licenças permitidas para este especialista já foram vendidas. Nada foi cobrado."
+    },
+    "license_already_reviewed": {
+      "title": "Esta licença já foi usada numa avaliação",
+      "text": "Esta licença já foi usada para avaliar o especialista, e cada licença serve para uma avaliação só. A nota do especialista continua valendo para você."
+    },
+    "guarantee_limit": {
+      "title": "Limite de garantias atingido",
+      "text": "Você atingiu o limite atual de garantias abertas. Ele aumenta conforme você faz compras na loja."
+    },
+    "submission_state": {
+      "title": "Este envio não espera a sua confirmação agora",
+      "text": "Atualize a página para ver em que passo ele está."
+    },
+    "not_approved": {
+      "title": "Esta versão ainda não foi aprovada",
+      "text": "A confirmação só abre depois da aprovação da equipe."
+    },
+    "wrong_step": {
+      "title": "Este não é o passo certo agora",
+      "text": "Atualize a página: ela mostra o passo que falta."
+    },
+    "publication_blocked": {
+      "title": "Este especialista está bloqueado na rede",
+      "text": "Ele está suspenso ou registrado por outra conta. Fale com a equipe."
+    },
+    "rate_limited": {
+      "title": "Muitas tentativas",
+      "text": "Aguarde um minuto e tente de novo."
+    },
+    "unauthorized": {
+      "title": "Sua sessão expirou",
+      "text": "Entre de novo para continuar."
+    },
+    "faucet_unavailable": {
+      "title": "Fundos de teste indisponíveis agora",
+      "text": "Tente de novo daqui a pouco."
+    },
+    "invalid_criterion": {
+      "title": "Escolha um dos critérios combinados",
+      "text": "A contestação precisa apontar um dos critérios da etapa."
+    },
+    "transaction_failed": {
+      "title": "A transação falhou na rede",
+      "text": "Nada foi cobrado. Tente de novo: montamos uma nova."
+    },
+    "bad_request": {
+      "title": "Não deu para concluir",
+      "text": "Confira os dados e tente de novo."
+    },
+    "server_error": {
+      "title": "O servidor não respondeu bem",
+      "text": "Tente de novo em instantes."
+    },
+    "cancelled": {
+      "title": "Assinatura cancelada",
+      "text": "Nada foi cobrado."
+    },
+    "unknown": {
+      "title": "Algo deu errado",
+      "text": "Tente de novo."
+    },
+    "price_changed_amount": {
+      "title": "O preço do especialista mudou",
+      "text": "O preço do especialista agora é {now}. Confira o novo valor e confirme de novo."
+    },
+    "royalty_changed": {
+      "title": "A taxa de transferência mudou",
+      "text": "A taxa de transferência mudou. Confira o novo valor e confirme de novo."
+    },
+    "paused": {
+      "title": "Pausado por um momento",
+      "text": "A plataforma pausou esta operação. Nada foi cobrado. Tente de novo mais tarde."
+    },
+    "contract_rejected": {
+      "title": "A rede recusou esta operação",
+      "text": "A rede recusou esta operação e nada foi cobrado. Atualize a página e tente de novo."
+    },
+    "offline": {
+      "title": "Sem conexão",
+      "text": "Não conseguimos falar com o servidor. Confira a sua conexão e tente de novo."
+    },
+    "sponsor_declined": {
+      "title": "Não conseguimos cobrir a taxa da rede",
+      "text": "A plataforma não conseguiu pagar a taxa da rede desta operação, então nada foi enviado e nada foi cobrado. Atualize a página e tente de novo mais tarde."
+    },
+    "wrong_network": {
+      "title": "Rede errada",
+      "text": "Esta operação foi preparada para outra rede. Atualize a página e tente de novo."
+    },
+    "privy_chain_mismatch": {
+      "title": "Carteira do e-mail configurada para outra rede",
+      "text": "Esta versão do site está configurada para uma rede diferente da do servidor, então nada foi assinado. Fale com o suporte."
+    },
+    "wallet_changed": {
+      "title": "Sua carteira mudou",
+      "text": "A carteira conectada agora não é a que você usou para entrar. Saia e entre de novo."
+    },
+    "wallet_not_connected": {
+      "title": "Carteira desconectada",
+      "text": "Entre de novo para conectar a sua carteira."
+    },
+    "login_failed": {
+      "title": "Não deu para entrar",
+      "text": "O login não terminou. Tente de novo."
+    },
+    "login_timeout": {
+      "title": "O login demorou demais",
+      "text": "Tente de novo."
+    },
+    "login_interrupted": {
+      "title": "Login interrompido",
+      "text": "A página mudou antes de o login terminar. Tente de novo."
+    },
+    "login_loading": {
+      "title": "O login ainda está carregando",
+      "text": "Aguarde um segundo e tente de novo."
+    },
+    "create_wallet_failed": {
+      "title": "Não conseguimos criar a sua carteira",
+      "text": "Tente de novo em instantes."
+    },
+    "dev_wallet_mainnet": {
+      "title": "Carteira de teste não permitida aqui",
+      "text": "A carteira de teste só funciona em redes de teste. Entre com o seu e-mail."
+    },
+    "dev_wallet_disabled": {
+      "title": "O login não está configurado",
+      "text": "Este site ainda não tem nenhuma forma de login configurada."
+    },
+    "privy_not_configured": {
+      "title": "O login por e-mail não está configurado",
+      "text": "Este site não tem login por e-mail configurado. Use a carteira de teste nas redes de teste."
+    },
+    "network_unknown": {
+      "title": "Não conseguimos confirmar a rede",
+      "text": "Tente de novo em instantes."
+    },
+    "session_not_created": {
+      "title": "A sessão não foi criada",
+      "text": "Tente de novo."
+    }
+  },
+  "network": {
+    "mainnet": "Tempo",
+    "testnet": "Rede de teste Tempo",
+    "local": "Rede de teste local"
+  },
+  "image": {
+    "unreadable": "Não deu para ler esta imagem. Tente outra foto em JPG, PNG ou WebP.",
+    "noCanvas": "Seu navegador não conseguiu preparar a imagem. Tente outro navegador.",
+    "tooLarge": "Esta imagem ficou grande demais mesmo reduzida. Tente uma foto menor ou com menos detalhes."
+  },
+  "eval": {
+    "short": "{score}% nos testes internos",
+    "none": "Sem avaliações ainda",
+    "note": "Teste interno da equipe (checagens automáticas), não uma verificação independente."
+  },
+  "differentiators": {
+    "memory": {
+      "label": "Memória",
+      "text": "Aprende as suas preferências e lembra de você na próxima conversa."
+    },
+    "escalation": {
+      "label": "Atendimento do criador",
+      "text": "Se travar, você pode pedir ajuda ao próprio criador."
+    },
+    "liveData": {
+      "label": "Dado vivo",
+      "text": "Conhecimento datado e mantido em dia, com fonte e data."
+    },
+    "tool": {
+      "label": "Ferramenta própria",
+      "text": "Executa uma ferramenta no servidor, além de conversar."
+    },
+    "verifier": {
+      "label": "Resultado verificado",
+      "text": "A entrega é conferida automaticamente por testes."
+    }
+  }
+}

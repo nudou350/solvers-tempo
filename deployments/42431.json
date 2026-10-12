@@ -1,0 +1,169 @@
+{
+  "chainId": 42431,
+  "credits": "0xddAC1a537944eD2f438988AdeD23E6b5636D41dF",
+  "deployBlock": 39085012,
+  "deployedAt": 1791694078,
+  "escrow": "0x1d9D98e0F5656AE69150Df535BFb5dFF1F9055aE",
+  "gitSha": "0c876b870b948c42029c56933d886b07023f0034",
+  "impls": {
+    "credits": "0x660fF174F07eC2B4A6Ba30B4Ee79aa5Dc92cAA2f",
+    "escrow": "0x7C5a7eC8aE42271e8E02920CB1deA66100cdc005",
+    "license": "0x0766BE5Ef3ed4AFc60f27049F4F4B1c1BE6edE0D",
+    "registry": "0x112723F35D5E00bb75E3Aad8B3841431d9d84965",
+    "reviews": "0xFFed7A9d721601E67953E4343C2463B68c910204",
+    "staking": "0x88e0809F3CC523Ccc78d99e98F8c632f0EC8CB78"
+  },
+  "license": "0xb20C198431624b2Dd04dd6f998F87318F209c819",
+  "name": "moderato",
+  "registry": "0x09a82967C8C4A5a9ece332fb954C58313997BF21",
+  "reviews": "0x5a8221C883816712b9C3d54C17289c77814c0696",
+  "staking": "0x0B2E5B1137E8ED0Aae537772330f672AACE194Bf",
+  "token": "0x20C0000000000000000000000000000000000000",
+  "treasury": "0x4C0CA1C62Ea29f93062eF036bFcfC87EDe09e7ed",
+  "txHashes": [
+    {
+      "hash": "0xe9ada1c7f072683d8fae9cc53a1fa9bb6e5cce5abb641234cc367a71144fc50a",
+      "kind": "CREATE",
+      "contract": "SolversRegistry",
+      "function": null,
+      "address": "0x112723f35d5e00bb75e3aad8b3841431d9d84965",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x0a40df5753784a003b8f3a77227b36ef993dde5246979463598beebe0abe898b",
+      "kind": "CREATE",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x16534dac05eab292d2f5c745f9df1625767f8717d0d4ec9022ab89b1f159f849",
+      "kind": "CREATE",
+      "contract": "SolversLicense",
+      "function": null,
+      "address": "0x0766be5ef3ed4afc60f27049f4f4b1c1be6ede0d",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x87316aa326bba2f41585d6e230882882ef546714b665556a74b52ec10737eda7",
+      "kind": "CREATE",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0xb20c198431624b2dd04dd6f998f87318f209c819",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x0be58949d9f16d4702d45cc6fedf30ec73f785f8548ba28863c7513970f44f96",
+      "kind": "CREATE",
+      "contract": "SolversCredits",
+      "function": null,
+      "address": "0x660ff174f07ec2b4a6ba30b4ee79aa5dc92caa2f",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x07f663414c338c2ac1d770d32156dee5518c0f96e3a406bbd564efeb8a2b991b",
+      "kind": "CREATE",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0xddac1a537944ed2f438988aded23e6b5636d41df",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xdc82edf04bc334b1d52948ea496d758e3686ee45fd86db7e1b2559f3f338c002",
+      "kind": "CREATE",
+      "contract": "SolversReviews",
+      "function": null,
+      "address": "0xffed7a9d721601e67953e4343c2463b68c910204",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x64f8118528c92e795b71ef7b60d5f3ee1bebe14ab61c8965699d8fe4f59c8214",
+      "kind": "CREATE",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x5a8221c883816712b9c3d54c17289c77814c0696",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x90a0e1ef4a23c60af7ac23fc40fee047999ffaa3a2f92e57bbcd0dd8b0ec70a5",
+      "kind": "CREATE",
+      "contract": "SolversEscrow",
+      "function": null,
+      "address": "0x7c5a7ec8ae42271e8e02920cb1dea66100cdc005",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xe5d57a592fccd0ecce404b744e8cfd6c5fbec668387744bacf2ae41344b213f4",
+      "kind": "CREATE",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x1d9d98e0f5656ae69150df535bfb5dff1f9055ae",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xae66e36be97e6e9869ead011d41c9e0d76f492d23ab5f724ad5f63986d6989f8",
+      "kind": "CREATE",
+      "contract": "SolversStaking",
+      "function": null,
+      "address": "0x88e0809f3cc523ccc78d99e98f8c632f0ec8cb78",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xf5082bc422378b5e73a2070b9f8e14c1525b97bbf6c64f3a26d71ef00c868e2b",
+      "kind": "CREATE",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x0b2e5b1137e8ed0aae537772330f672aace194bf",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xcab4ebf4d6dc475bdc0f868cf1c8c96254de564722866a5d2786546526da8fef",
+      "kind": "CALL",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    },
+    {
+      "hash": "0x03a5dbfa2203a9b5d071e8efdb49c888b4febe41d03c653737d9d5bec65f6847",
+      "kind": "CALL",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xd5fe6649cb8cc4b323494f119377a94ec931e2097c1586ff3ed34b9ae95b4cbd",
+      "kind": "CALL",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xb0260e5b79e79789700d3b9d9b2eb8433103fe1469c6697601fc6f7777213cc8",
+      "kind": "CALL",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xa03e181a4437e0b832dc6062e281514fd9d4992364c29b96d9e4062d35f7b5d8",
+      "kind": "CALL",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    },
+    {
+      "hash": "0xa02550902106cd253c988508d0f8daf698d97aac05e378fbee40a19bd42be3fa",
+      "kind": "CALL",
+      "contract": "ERC1967Proxy",
+      "function": null,
+      "address": "0x09a82967c8c4a5a9ece332fb954c58313997bf21",
+      "status": "0x1"
+    }
+  ]
+}

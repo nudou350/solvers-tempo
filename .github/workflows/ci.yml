@@ -1,0 +1,87 @@
+# Monorepo CI: install, contracts build + generated-client sync check, build, typecheck and tests (unit, DB and
+# anvil-based). No secrets, no deployment, read-only token. The contracts' own suite (fmt, fuzz profile, gas snapshot,
+# storage layouts, anvil end-to-end and upgrade checks) is in contracts.yml.
+#
+# Test environment:
+# - TEST_DATABASE_URL points at the disposable pgvector service below (port 5546, as in local development); it is
+#   migrated before the tests. *.db.test.ts files skip themselves when the variable is absent.
+# - anvil comes from the Foundry toolchain on PATH; tests that need it (packages/chain, server lanes/indexer/publish)
+#   spawn their own `anvil --tempo` and deploy from contracts/out, built in the sync-check step.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: solvers
+          POSTGRES_PASSWORD: solvers
+          POSTGRES_DB: solvers_tempo_test
+        ports:
+          - 5546:5432
+        options: >-
+          --health-cmd "pg_isready -U solvers -d solvers_tempo_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      TEST_DATABASE_URL: postgres://solvers:solvers@127.0.0.1:5546/solvers_tempo_test
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      # pnpm version comes from "packageManager" in package.json.
+      - name: Setup pnpm
+        run: corepack enable pnpm
+
+      - name: Install Foundry (anvil --tempo for the chain tests)
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.5
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Builds contracts/out (also used by the anvil fixtures) and fails when packages/contracts-client/src/generated
+      # differs from the ABIs and deployments/<chainId>.json.
+      - name: Generated contracts client in sync
+        run: pnpm --filter @solvers/contracts-client generate:check
+
+      - name: Build
+        run: pnpm build
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # Placeholder secrets: env.ts validates them at import; nothing here is a real key.
+      - name: Migrate the test database
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+          JWT_SECRET: ci-placeholder-jwt-secret-0123456789abcdef
+          SERVER_KEK: Y2ktcGxhY2Vob2xkZXIta2VrLTMyLWJ5dGVzLWxvbmc=
+        run: pnpm --filter @solvers/server db:migrate
+
+      - name: Test
+        run: pnpm test

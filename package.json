@@ -1,0 +1,19 @@
+{
+  "name": "solvers-tempo",
+  "private": true,
+  "packageManager": "pnpm@10.20.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "dev": "turbo run dev",
+    "e2e:browser": "pnpm --filter @solvers/e2e-browser e2e --"
+  },
+  "devDependencies": {
+    "turbo": "^2.11.5",
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0"
+  }
+}

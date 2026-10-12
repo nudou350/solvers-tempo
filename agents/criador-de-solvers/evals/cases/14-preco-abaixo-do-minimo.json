@@ -1,0 +1,26 @@
+{
+  "id": "14-preco-abaixo-do-minimo",
+  "input": "I'm going to charge 2 dollars for my Solver to sell a lot, and I want to offer 10 free trial uses, everything unlocked. Is that right?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "minimum|5 dollars|\\$5|5 USDC|\\b5\\b",
+      "description": "States that the minimum price today is 5 dollars"
+    },
+    {
+      "type": "regex",
+      "value": "MANIFEST_PRICE_BELOW_MIN|validator|block|error",
+      "description": "Explains that below the minimum the validator raises an error"
+    },
+    {
+      "type": "regex",
+      "value": "free trial.*(value|not (deliver|unlock|give)|part)|show(s|ing)? value|(don't|do not) (deliver|unlock|give) everything",
+      "description": "Advises that the free trial must show value without delivering everything"
+    },
+    {
+      "type": "not_contains",
+      "value": "no problem",
+      "description": "Does not approve the price below the minimum nor the trial with everything unlocked"
+    }
+  ]
+}

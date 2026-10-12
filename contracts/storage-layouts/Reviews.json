@@ -1,0 +1,86 @@
+[
+  {
+    "path": "s",
+    "slot": "0",
+    "offset": 0,
+    "type": "struct SolversReviews.ReviewsStorage"
+  },
+  {
+    "path": "s.license",
+    "slot": "0",
+    "offset": 0,
+    "type": "contract ISolversLicense"
+  },
+  {
+    "path": "s.credits",
+    "slot": "1",
+    "offset": 0,
+    "type": "contract ISolversCredits"
+  },
+  {
+    "path": "s.nextReviewId",
+    "slot": "1",
+    "offset": 20,
+    "type": "uint64"
+  },
+  {
+    "path": "s.reviews",
+    "slot": "2",
+    "offset": 0,
+    "type": "mapping(bytes32 => mapping(address => struct SolversReviews.Review))"
+  },
+  {
+    "path": "s.reviews[k][k].rating",
+    "slot": "0",
+    "offset": 0,
+    "type": "uint8"
+  },
+  {
+    "path": "s.reviews[k][k].createdAt",
+    "slot": "0",
+    "offset": 1,
+    "type": "uint40"
+  },
+  {
+    "path": "s.reviews[k][k].updatedAt",
+    "slot": "0",
+    "offset": 6,
+    "type": "uint40"
+  },
+  {
+    "path": "s.reviews[k][k].tokenId",
+    "slot": "0",
+    "offset": 11,
+    "type": "uint64"
+  },
+  {
+    "path": "s.reviews[k][k].id",
+    "slot": "0",
+    "offset": 19,
+    "type": "uint64"
+  },
+  {
+    "path": "s.reviews[k][k].contentHash",
+    "slot": "1",
+    "offset": 0,
+    "type": "bytes32"
+  },
+  {
+    "path": "s.ratings",
+    "slot": "3",
+    "offset": 0,
+    "type": "mapping(bytes32 => struct SolversReviews.Rating)"
+  },
+  {
+    "path": "s.ratings[k].sum",
+    "slot": "0",
+    "offset": 0,
+    "type": "uint64"
+  },
+  {
+    "path": "s.ratings[k].count",
+    "slot": "0",
+    "offset": 8,
+    "type": "uint32"
+  }
+]

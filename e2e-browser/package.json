@@ -1,0 +1,24 @@
+{
+  "name": "@solvers/e2e-browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "e2e": "tsx src/run.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^22.0.0",
+    "jsqr": "^1.4.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "dependencies": {
+    "@solana/kit": "^8.4.0",
+    "@solvers/chain": "workspace:*",
+    "@solvers/contracts-client": "workspace:*",
+    "@solvers/shared": "workspace:*",
+    "viem": "^2.57.4"
+  }
+}

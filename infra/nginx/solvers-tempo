@@ -1,0 +1,215 @@
+# /etc/nginx/sites-available/solvers-tempo  (enable with: ln -s ../sites-available/solvers-tempo /etc/nginx/sites-enabled/)
+# Solvers on Tempo, one domain (D13): the web app (Next.js, PM2 solvers-tempo-web, 127.0.0.1:4018) at / and the API
+# (Express, PM2 solvers-tempo-api, 127.0.0.1:3018) at /api, /mcp, /oauth, /.well-known, /webhooks, /preview and /health.
+# Same origin for both, so there is no CORS on the web app and the session cookie is first-party.
+#
+# Domain: solvers-tempo.wondervelop.com is the working name (owed decision #5 in docs/migration/decisions.md); to use
+# another, replace it in the two server_name lines and the two certificate paths.
+# This file is NOT installed by infra/deploy.sh: copy it by hand (infra/README.md), `sudo nginx -t`, then reload.
+#
+# Rate limiting. This file is included inside http{}, so it defines its own zones instead of using the shared
+# `general`/`api`/`login` zones of /etc/nginx/conf.d: per-IP counters of other sites are not shared, and a Next.js page
+# (dozens of chunks plus `?_rsc=` prefetches) never runs into the 10 r/s `general` zone, which caused 503s on chunks in
+# the previous app. Zone and map names are global in nginx: every name here starts with solvers_tempo_.
+# Rejections answer 429 (not 503), so a limit is never mistaken for an outage.
+
+# Package ZIP uploads (POST /api/creator/submissions): the key exists only for POST (an empty key is not counted), so
+# status reads never touch this zone. 6/min per IP is already loose: the app allows 5 per day and 3 pending per creator.
+map $request_method $solvers_tempo_upload_key {
+    POST    $binary_remote_addr;
+    default "";
+}
+limit_req_zone $solvers_tempo_upload_key zone=solvers_tempo_upload:2m rate=6r/m;
+limit_req_zone $binary_remote_addr zone=solvers_tempo_api:10m rate=30r/s;
+limit_req_zone $binary_remote_addr zone=solvers_tempo_auth:2m rate=2r/s;
+limit_req_zone $binary_remote_addr zone=solvers_tempo_web:10m rate=20r/s;
+
+upstream solvers_tempo_api {
+    server 127.0.0.1:3018;
+    keepalive 64;
+}
+
+upstream solvers_tempo_web {
+    server 127.0.0.1:4018;
+    keepalive 32;
+}
+
+# HTTP: redirect to HTTPS. The redirect lives in `location /` (not at server level) so certbot's HTTP-01 challenge
+# location for renewals is matched before it.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name solvers-tempo.wondervelop.com;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name solvers-tempo.wondervelop.com;
+
+    # Issued by: sudo certbot certonly --nginx -d solvers-tempo.wondervelop.com (infra/README.md, step 5)
+    ssl_certificate /etc/letsencrypt/live/solvers-tempo.wondervelop.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/solvers-tempo.wondervelop.com/privkey.pem;
+    # nginx's default cipher list with the client's preference (no ssl_prefer_server_ciphers): every TLS 1.2/1.3 suite
+    # left by OpenSSL's defaults is acceptable, so there is no server order to enforce.
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    client_max_body_size 2m;
+    limit_req_status 429;
+
+    # Security headers owned by nginx: HSTS and nosniff only. The web app sends its own nonce-based
+    # Content-Security-Policy (apps/web/src/proxy.ts) and X-Frame-Options/Referrer-Policy on the sensitive areas
+    # (apps/web/next.config.ts); the API sets frame-ancestors on the OAuth consent page and its own CSP on /preview,
+    # which the web app embeds in a same-origin iframe. So nginx sets NO Content-Security-Policy, X-Frame-Options or
+    # Referrer-Policy: a second copy would either break that iframe or, for Referrer-Policy, override the app's stricter
+    # value (browsers apply the last one). add_header is not inherited by a location that has its own add_header: the
+    # /_next/static/ block repeats these two lines.
+    proxy_hide_header X-Content-Type-Options;
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header X-Content-Type-Options "nosniff" always;
+
+    # MCP connector: streaming responses (no buffering), long read timeout. The app also limits per wallet.
+    location = /mcp {
+        limit_req zone=solvers_tempo_api burst=40 nodelay;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 300s;
+    }
+
+    # OAuth (connector login), discovery documents, payment webhooks (Mercado Pago), deliverable previews, health.
+    location ~ ^/(oauth/|\.well-known/|webhooks/|preview/|health$) {
+        limit_req zone=solvers_tempo_api burst=20 nodelay;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Creator package ZIP upload (up to 50 MB; nginx ceiling 60m). The body is streamed to the API as it arrives (no
+    # temporary file on the shared system disk); the API checks the session before reading it. Exact match: only this
+    # URL. GET (the list) also lands here but never counts in the upload zone (empty key); /api/creator/submissions/<id>
+    # and the rest of /api keep the 2m body limit, except the review photo upload below (6m).
+    location = /api/creator/submissions {
+        limit_req zone=solvers_tempo_api burst=20 nodelay;
+        limit_req zone=solvers_tempo_upload burst=3 nodelay;
+        client_max_body_size 60m;
+        client_body_buffer_size 256k;
+        client_body_timeout 120s;     # max time WITHOUT bytes from the client (resets on each read), not the whole upload
+        proxy_request_buffering off;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 10s;
+        proxy_send_timeout 300s;
+        proxy_read_timeout 300s;      # the API answers 202 after writing the ZIP
+    }
+
+    # Review photo upload (POST /api/agents/<id or slug>/reviews/mine/images): the API accepts a raw image body up to
+    # 5 MB (MAX_IMAGE_UPLOAD_BYTES in packages/shared, express.raw in apps/server/src/store/images.ts), so nginx allows
+    # 6m here; the API also limits uploads per wallet. A regex location wins over the `/api/` prefix below. Same zone and
+    # proxy settings as `/api/`. This and the ZIP upload above are the only API routes that take large bodies (creator
+    # gallery images are added by `cli:images` on the server, not over HTTP).
+    location ~ ^/api/agents/[^/]+/reviews/mine/images$ {
+        limit_req zone=solvers_tempo_api burst=20 nodelay;
+        client_max_body_size 6m;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 120s;
+    }
+
+    # Login steps (SIWE nonce/verify, Privy link, logout): strict per-IP zone. /api/auth/me is read on page loads to
+    # restore the session, so it stays on the general API zone below.
+    location = /api/auth/me {
+        limit_req zone=solvers_tempo_api burst=20 nodelay;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /api/auth/ {
+        limit_req zone=solvers_tempo_auth burst=10 nodelay;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Store, relay, payments, creator and admin routes. Waits on the chain (receipts) can take a while.
+    location /api/ {
+        limit_req zone=solvers_tempo_api burst=20 nodelay;
+        proxy_pass http://solvers_tempo_api;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 120s;
+    }
+
+    # Hashed Next.js assets: immutable, cached for a year, and deliberately WITHOUT any limit_req (a single page loads
+    # dozens of chunks at once; rate-limiting them produced 503s and "MIME type text/html" errors in the previous app).
+    # Cache-Control is set only on success (no `always`), so a 404 for an unknown chunk is not cached for a year.
+    location /_next/static/ {
+        proxy_pass http://solvers_tempo_web;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_hide_header Cache-Control;
+        proxy_hide_header X-Content-Type-Options;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    # Web app pages. High burst: every visible link triggers a prefetch (`?_rsc=`) along with the navigation.
+    location / {
+        limit_req zone=solvers_tempo_web burst=60 nodelay;
+        proxy_pass http://solvers_tempo_web;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/javascript application/json application/javascript image/svg+xml;
+}

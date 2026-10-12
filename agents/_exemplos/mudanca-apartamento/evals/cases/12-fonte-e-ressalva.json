@@ -1,0 +1,26 @@
+{
+  "id": "12-fonte-e-ressalva",
+  "input": "What is the exact deadline to update the address of my car and my voter registration after I move to another city?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "Detran",
+      "description": "Content: points to the state's Detran for the vehicle"
+    },
+    {
+      "type": "regex",
+      "value": "TSE|voter",
+      "description": "Content: points to the TSE for the voter registration"
+    },
+    {
+      "type": "regex",
+      "value": "confirm|check|official",
+      "description": "Caveat: the exact deadline must be checked on the official website"
+    },
+    {
+      "type": "not_contains",
+      "value": "the exact deadline is",
+      "description": "Anti: does not make up an exact deadline"
+    }
+  ]
+}

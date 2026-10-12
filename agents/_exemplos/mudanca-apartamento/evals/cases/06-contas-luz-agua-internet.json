@@ -1,0 +1,26 @@
+{
+  "id": "06-contas-luz-agua-internet",
+  "input": "What do I do about the electricity, water and internet of the old apartment and the new one?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "protocol",
+      "description": "Method: advises keeping the protocol number of each contact"
+    },
+    {
+      "type": "regex",
+      "value": "in advance|before the move|ahead of time",
+      "description": "Method: gives notice before the move, not after"
+    },
+    {
+      "type": "regex",
+      "value": "utility|customer service|official (website|site)",
+      "description": "Caveat: the deadline is whatever the utility company or official customer service says"
+    },
+    {
+      "type": "not_contains",
+      "value": "I guarantee that",
+      "description": "Anti: does not guarantee third-party deadlines"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+# Deploy to the VPS. MANUAL ONLY: the single trigger is `workflow_dispatch` (Actions tab → "deploy" → Run workflow).
+# There is deliberately no push/merge/schedule trigger: unlike the previous app, a commit to master never reaches
+# production by itself (contract deployments and upgrades must happen first, by hand; docs/deploy-runbook.md).
+#
+# Guards: runs only from master, only when the typed confirmation matches, and inside the `production` environment,
+# which the owner configures with required reviewers (Settings → Environments) so every run waits for approval.
+# Run it only after ci.yml is green for the same commit.
+#
+# Secrets it needs (environment `production`):
+#   VPS_SSH_KEY      private key of the `deploy` user on the VPS (VPS_GUIDE §8; only read by the ssh-agent action)
+#   VPS_KNOWN_HOSTS  the VPS host key line(s) (`ssh-keyscan -t ed25519 <vps-ip>`, fingerprint checked on the VPS with
+#                    `ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub`), so the runner never trusts on first use
+#   DEPLOY_HOST      `deploy@<vps-ip>`, the SSH target of infra/deploy.sh
+# No application secret is stored in GitHub: shared/.env, shared/web.env and the keys live only on the VPS.
+name: deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "deploy solvers-tempo" to ship the selected commit of master to the VPS'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/master' && inputs.confirm == 'deploy solvers-tempo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment: production
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      # Fast gate on the runner (the VPS builds again from the same commit). Tests are ci.yml's job.
+      - name: Setup pnpm
+        run: corepack enable pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@d4b9b8ff72958532804b70bbe600ad43b36d5f2e # v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Pin the VPS host key
+        env:
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          test -n "$VPS_KNOWN_HOSTS" || { echo "VPS_KNOWN_HOSTS is not set" >&2; exit 1; }
+          mkdir -p ~/.ssh
+          printf '%s\n' "$VPS_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: bash infra/deploy.sh --yes

@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "title": "Solvers: AI specialists",
+    "description": "AI specialists for the Claude and ChatGPT you already use. Buy once, use anywhere."
+  },
+  "skipToContent": "Skip to content",
+  "notFound": {
+    "title": "Page not found",
+    "home": "Go to home",
+    "body": "This address doesn't match any page on Solvers."
+  },
+  "localeSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "pt": "Português"
+  },
+  "nav": {
+    "explore": "Explore",
+    "exploreShort": "Explore",
+    "library": "My library",
+    "libraryShort": "Library",
+    "guarantees": "Guarantees",
+    "guaranteesShort": "Guarantees",
+    "creators": "For creators",
+    "creatorsShort": "Creator"
+  },
+  "header": {
+    "logoLabel": "Solvers, home page",
+    "mainNav": "Main",
+    "tabbar": "Navigation",
+    "signIn": "Sign in",
+    "signInFailed": "Couldn't sign in",
+    "myAccount": "My account: {name}",
+    "testWallet": "Test wallet",
+    "yourAccount": "Your account",
+    "myProfile": "My profile",
+    "myLibrary": "My library",
+    "useOtherTestWallet": "Use another test wallet",
+    "switchWalletFailed": "Couldn't switch wallets",
+    "forgetWalletConfirm": "Wallet {wallet} was created by this browser for testing. Using another one deletes it from here: anything bought with it stops showing up.",
+    "forgetWalletYes": "Delete it and use another",
+    "forgetWalletNo": "Keep this wallet",
+    "signOut": "Sign out",
+    "signOutFailed": "Couldn't sign out",
+    "balance": "Balance: {amount}",
+    "getTestFunds": "Get test funds",
+    "fundsSending": "Sending test funds…",
+    "fundsReceived": "You received {amount} in test funds",
+    "fundsRequested": "Test funds requested. They show up in a few seconds."
+  },
+  "footer": {
+    "tagline": "AI specialists for the Claude and ChatGPT you already use. Buy once, use anywhere.",
+    "explore": "Explore",
+    "solvers": "Solvers",
+    "guarantees": "Guarantees",
+    "creators": "Creators",
+    "publish": "Publish a solver",
+    "dashboard": "Creator dashboard",
+    "trust": "Trust",
+    "profile": "Profile and reputation",
+    "network": "Licenses recorded on the Tempo network"
+  },
+  "theme": {
+    "useLight": "Switch to light theme",
+    "useDark": "Switch to dark theme"
+  },
+  "switchAccount": {
+    "label": "Switch account",
+    "group": "Switch test wallet",
+    "newWallet": "New test wallet",
+    "switchFailed": "Couldn't switch wallets",
+    "explain": "In this test version, wallet {wallet} was created by this browser. Using another one deletes the current one from here: anything bought with it stops showing up.",
+    "useOther": "Use another test wallet",
+    "justSignOut": "Just sign out",
+    "cancel": "Cancel"
+  },
+  "ui": {
+    "loading": "Loading…",
+    "close": "Close",
+    "closeNotice": "Close notice",
+    "signIn": "Sign in",
+    "signInFailed": "Couldn't sign in",
+    "seeMore": "See more",
+    "seeLess": "See less",
+    "images": "Images",
+    "imageCount": "{i} of {n}",
+    "imageAlt": "{label}: {i} of {n}",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "reputationTitle": "Reputation {score}/100",
+    "verifiedPurchase": "Verified purchase",
+    "ratingLabel": "Rating {rating} out of 5",
+    "ratingLabelWithCount": "Rating {rating} out of 5, {count, plural, one {# review} other {# reviews}}",
+    "techTitle": "Want to check the technical details?",
+    "techHide": "Hide technical details",
+    "techShow": "See the record on the network",
+    "techExplorer": "Open in the network explorer"
+  },
+  "network": {
+    "mainnet": "Tempo",
+    "testnet": "Tempo test network",
+    "local": "Local test network",
+    "testHint": "Test network: balances and purchases here have no real value."
+  },
+  "txError": {
+    "signIn": "Sign in",
+    "signInFailed": "Couldn't sign in",
+    "retry": "Try again",
+    "getTestFunds": "Get test funds",
+    "fundsSent": "Test funds sent"
+  }
+}

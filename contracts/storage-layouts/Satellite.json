@@ -1,0 +1,20 @@
+[
+  {
+    "path": "s",
+    "slot": "0",
+    "offset": 0,
+    "type": "struct SolversSatellite.SatelliteStorage"
+  },
+  {
+    "path": "s.registry",
+    "slot": "0",
+    "offset": 0,
+    "type": "contract ISolversRegistry"
+  },
+  {
+    "path": "s.token",
+    "slot": "1",
+    "offset": 0,
+    "type": "contract IERC20"
+  }
+]

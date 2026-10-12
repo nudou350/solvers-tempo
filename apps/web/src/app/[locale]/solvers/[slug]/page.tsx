@@ -1,0 +1,414 @@
+import type { AgentDetail, PublicConfig } from "@solvers/api-client";
+import type { Metadata } from "next";
+import { Link } from "@/i18n/navigation";
+import { INTL_LOCALE, type Locale } from "@/i18n/routing";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { cache, type CSSProperties } from "react";
+import { BeforeAfterBlock, Reviews, Scores, Versions } from "@/components/catalog/AgentSections";
+import { BuyBox } from "@/components/catalog/BuyBox";
+import { DifferentiatorBadges } from "@/components/catalog/PlatformBits";
+import { Gallery } from "@/components/catalog/Gallery";
+import { ClampedText } from "@/components/ui/ClampedText";
+import { TrialBlock } from "@/components/catalog/TrialBlock";
+import { brlText, brlValueText, priceUnits, tokenText, usdText } from "@/components/catalog/money";
+import { networkKey } from "@/components/catalog/network";
+import { creatorHref } from "@/components/catalog/data";
+import { Button } from "@/components/ui/Button";
+import { RepBadge } from "@/components/ui/Chip";
+import { Empty } from "@/components/ui/Empty";
+import { Icon, type IconName } from "@/components/ui/Icon";
+import { Tile } from "@/components/ui/Tile";
+import { ApiError, serverApi } from "@/lib/api";
+import { addressUrl } from "@/lib/explorer";
+import { initials } from "@/lib/format";
+import { getFormat } from "@/lib/format-server";
+import { DIFFERENTIATORS, knownDifferentiators } from "@/lib/differentiators";
+import { gap } from "@/lib/style";
+
+export const dynamic = "force-dynamic";
+
+type Props = { params: Promise<{ slug: string; locale: string }> };
+
+/** Detail + config, fetched once per request (metadata and page). null = not found. */
+const load = cache(async (slug: string, lang: Locale): Promise<{ d: AgentDetail; config: PublicConfig } | null> => {
+  const api = serverApi();
+  try {
+    const [d, config] = await Promise.all([api.getAgent(slug, lang), api.getConfig()]);
+    return { d, config };
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) return null;
+    throw e;
+  }
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const data = await load(slug, locale as Locale).catch(() => null);
+  if (!data) return { title: (await getTranslations({ locale, namespace: "catalog.meta" }))("solverFallback") };
+  return { title: data.d.agent.name, description: data.d.agent.tagline };
+}
+
+const PACK: { icon: IconName; hue: number }[] = [
+  { icon: "book", hue: 250 },
+  { icon: "wrench", hue: 300 },
+  { icon: "file", hue: 60 },
+  { icon: "refresh", hue: 150 },
+  { icon: "message", hue: 25 },
+];
+
+/** Columns of "What's in the package": up to 5 in one row; above that, full rows of 3 or 4. */
+const packCols = (n: number) => (n <= 5 ? Math.max(2, n) : n % 3 === 0 ? 3 : 4);
+
+export default async function AgentPage({ params }: Props) {
+  const { slug, locale } = await params;
+  const t = await getTranslations("catalog.page");
+  const tc = await getTranslations("catalog");
+  const f = await getFormat();
+  let data: Awaited<ReturnType<typeof load>>;
+  try {
+    data = await load(slug, locale as Locale);
+  } catch {
+    return (
+      <section className="wrap sec">
+        <Empty icon="warning" title={t("loadErrorTitle")} action={<Button href={`/solvers/${encodeURIComponent(slug)}`}>{t("retry")}</Button>}>
+          {t("loadErrorBody")}
+        </Empty>
+      </section>
+    );
+  }
+  if (!data) notFound();
+
+  const { d, config } = data;
+  const a = d.agent;
+  const cr = d.creator;
+  const lv = f.repLevel(cr.reputationScore);
+  const rate = config.brlPerUsd;
+  const req = (t: "client" | "connector" | "plan") => a.requirements.filter((r) => r.type === t);
+  const clients = req("client").map((r) => r.label);
+  const connectors = req("connector");
+  const plan = req("plan")[0]?.label ?? null;
+  const g = d.guarantee;
+  const diffs = knownDifferentiators(a.differentiators);
+  const catName = f.categoryLabel(a.category);
+  const clientList = new Intl.ListFormat(f.locale === "pt" ? "pt-BR" : "en-US", { type: "conjunction" }).format(clients);
+  const token = config.paymentToken;
+  const intl = INTL_LOCALE[locale as Locale] ?? "en-US";
+  // Prices: pt in reais (estimate by the rate), en in dollars 1:1 with the stablecoin; the token amount below them.
+  const localPrice = (n: number) => {
+    const u = priceUnits(n, token.decimals);
+    return u == null ? "—" : f.locale === "pt" ? brlText(u, token.decimals, rate, intl) : usdText(u, token.decimals, intl);
+  };
+  const tokenPrice = (n: number) => {
+    const u = priceUnits(n, token.decimals);
+    return u == null ? "—" : tokenText(u, token, intl);
+  };
+  const licenseUnits = priceUnits(a.priceUsdc, token.decimals);
+
+  return (
+    <>
+      <div className="wrap" style={{ paddingTop: 28 }}>
+        <nav className="crumbs" aria-label={t("crumbsAria")}>
+          <Link href="/">{t("home")}</Link>
+          <Icon name="chevron-right" size="s" />
+          <Link href="/#categorias">{catName}</Link>
+          <Icon name="chevron-right" size="s" />
+          <span style={{ color: "var(--ink)" }} aria-current="page">
+            {a.name}
+          </span>
+        </nav>
+      </div>
+
+      <section className="wrap" style={{ paddingTop: 28, paddingBottom: 56 }}>
+        <div className="split">
+          <div className="col" style={gap("26px")}>
+            <div className="row start m-col-x" style={gap("22px")}>
+              <Tile category={a.category} size="l" />
+              <div className="col grow" style={gap("10px")}>
+                <div className="row wrapx" style={gap("8px")}>
+                  <span className="chip">{catName}</span>
+                  <span className="chip">{t("version", { version: a.version })}</span>
+                </div>
+                <h1 className="display h1s">{a.name}</h1>
+                <p className="lead">{a.tagline}</p>
+                <DifferentiatorBadges keys={a.differentiators} />
+              </div>
+            </div>
+            <div className="row wrapx card pad-s" style={gap("14px", { padding: "14px 18px" })}>
+              <span className="av" aria-hidden>
+                {initials(cr.name)}
+              </span>
+              <div className="grow" style={{ minWidth: 180 }}>
+                <div className="small faint">{t("createdBy")}</div>
+                <Link className="bold trunc" style={{ display: "block" }} href={creatorHref(cr.id)}>
+                  {cr.name}
+                </Link>
+              </div>
+              <RepBadge score={cr.reputationScore}>
+                <span>
+                  {t("repBadge", { level: lv.label, score: cr.reputationScore })}
+                </span>
+              </RepBadge>
+              <span className="small muted">{tc("disputes", { n: cr.disputesLost })}</span>
+            </div>
+            <Gallery images={d.images} name={a.name} />
+            <ClampedText text={a.description} style={{ fontSize: 17, lineHeight: 1.65 }} />
+            <div className="row wrapx" style={gap("10px")}>
+              {clients.length ? (
+                <span className="chip chip-plain">
+                  <Icon name="monitor" size="s" />
+                  {t("worksOn", { clients: clientList })}
+                </span>
+              ) : null}
+              {connectors.map((r) => (
+                <span key={r.label} className="chip chip-plain">
+                  <Icon name="plug" size="s" />
+                  {r.optional ? t("connectorOptional", { name: f.connectorName(r.label) }) : t("connector", { name: r.label })}
+                </span>
+              ))}
+              {plan ? (
+                <span className="chip chip-plain">
+                  <Icon name="card" size="s" />
+                  {plan}
+                </span>
+              ) : null}
+            </div>
+          </div>
+
+          <aside className="sticky" aria-label={a.platform ? t("asideInstall") : t("asideBuy")}>
+            <BuyBox
+              platform={a.platform}
+              slug={a.slug}
+              name={a.name}
+              priceUnits={licenseUnits == null ? null : licenseUnits.toString()}
+              priceBrl={d.priceBrl}
+              token={{ symbol: token.symbol, decimals: token.decimals }}
+              trial={d.trial}
+              hasGuarantee={!!g}
+              rate={rate}
+              supply={a.supply}
+              royalty={{ creatorBps: a.royaltyBps, platformBps: config.royalty.platformBps }}
+              creatorWallet={d.onchain.creatorWallet}
+            />
+          </aside>
+        </div>
+      </section>
+
+      {d.trial ? <TrialBlock slug={a.slug} trial={d.trial} /> : null}
+
+      <Scores
+        rating={a.userRating}
+        reviewsCount={a.reviewsCount}
+        distribution={d.ratingDistribution}
+        evalScore={a.evalScore}
+        version={a.version}
+        verifiedUses={a.verifiedUses}
+        tech={{
+          hash: a.versionHash,
+          network: tc(`network.${networkKey(config.chainId)}`),
+          agentId: d.onchain.agentId,
+          registry: d.onchain.registry,
+          explorer: d.onchain.agentId && d.onchain.registry ? addressUrl(d.onchain.registry, config) : null,
+        }}
+      />
+
+      {g ? (
+        <section className="wrap" id="garantia" style={{ paddingBottom: 64, scrollMarginTop: 24 }}>
+          <div className="card" style={{ overflow: "hidden" }}>
+            <div className="sol-line" style={{ borderRadius: 0, height: 4 }} />
+            <div className="pad-l col" style={gap("24px")}>
+              <div className="row between end wrapx" style={gap("20px")}>
+                <div className="col" style={gap("8px", { maxWidth: 640 })}>
+                  <span className="chip chip-ok" style={{ alignSelf: "flex-start" }}>
+                    <Icon name="shield-check" size="s" />
+                    {t("guaranteeChip")}
+                  </span>
+                  <h2 className="display h2s">{t("guaranteeTitle")}</h2>
+                  <p className="muted">{t("guaranteeBody", { duration: f.durationText(g.reviewWindowSecs) })}</p>
+                </div>
+                <div className="col" style={gap("12px", { alignItems: "flex-start" })}>
+                  <div className="col" style={gap("2px")}>
+                    <span className="display num" style={{ fontSize: 44, lineHeight: 1 }}>
+                      {f.locale === "pt" ? brlValueText(g.priceBrl, intl) : localPrice(g.priceUsdc)}
+                    </span>
+                    <span className="small faint">{t("perTask", { amount: tokenPrice(g.priceUsdc) })}</span>
+                  </div>
+                  <Button href={`/checkout?agent=${encodeURIComponent(a.slug)}&type=guarantee`} size="lg" iconRight="arrow-right">
+                    {t("hireGuarantee")}
+                  </Button>
+                </div>
+              </div>
+              <ol className={`g${Math.min(3, g.milestones.length)} m1`} style={gap("18px", { listStyle: "none", padding: 0, margin: 0 })}>
+                {g.milestones.map((m, i) => (
+                  <li key={i} className="card-flat pad col" style={gap("14px")}>
+                    <div className="row between start" style={gap("12px")}>
+                      <div className="row grow" style={gap("12px")}>
+                        <span className="dot dot-now" style={{ width: 32, height: 32 } as CSSProperties}>
+                          {i + 1}
+                        </span>
+                        <b style={{ fontSize: 17 }}>{m.title}</b>
+                      </div>
+                      <span className="col flex-none" style={gap("0", { alignItems: "flex-end", textAlign: "right" })}>
+                        <b className="num" style={{ whiteSpace: "nowrap" }}>{localPrice(m.amountUsdc)}</b>
+                        <span className="tiny faint" style={{ whiteSpace: "nowrap" }}>{tokenPrice(m.amountUsdc)}</span>
+                      </span>
+                    </div>
+                    <span className={`chip ${m.verify === "tests" ? "chip-ok" : "chip-brand"}`} style={{ alignSelf: "flex-start" }}>
+                      <Icon name={m.verify === "tests" ? "shield-check" : "eye"} size="s" />
+                      {m.verify === "tests" ? t("verifyTests") : t("verifyReview")}
+                    </span>
+                    <ul className="col small" style={gap("8px")}>
+                      {m.criteria.map((c) => (
+                        <li key={c} className="row start" style={gap("10px")}>
+                          <span className="ok">
+                            <Icon name="check-circle" size="s" />
+                          </span>
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <BeforeAfterBlock items={d.beforeAfter} name={a.name} />
+
+      {diffs.length ? (
+        <section className="wrap" style={{ paddingBottom: 64 }} aria-labelledby="diferenciais">
+          <div className="col" style={gap("8px", { marginBottom: 26 })}>
+            <h2 className="display h2s" id="diferenciais">
+              {t("diffTitle")}
+            </h2>
+            <p className="muted" style={{ maxWidth: 620 }}>
+              {t("diffBody")}
+            </p>
+          </div>
+          <ul className={`g${Math.min(3, Math.max(2, diffs.length))} m1`} style={gap("16px")}>
+            {diffs.map((k) => (
+              <li key={k} className="card pad-s col" style={gap("10px")}>
+                <span className="tile tile-s" style={{ "--h": 250 } as CSSProperties} aria-hidden>
+                  <Icon name={DIFFERENTIATORS[k]?.icon ?? "check"} />
+                </span>
+                <b>{tc(`diff.${k}.label`)}</b>
+                <span className="small muted">{tc(`diff.${k}.text`)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      <section className="wrap" style={{ paddingBottom: 64 }}>
+        <div className="col" style={gap("8px", { marginBottom: 26 })}>
+          <h2 className="display h2s">{t("reqTitle")}</h2>
+          <p className="muted" style={{ maxWidth: 620 }}>
+            {t("reqBody", { kind: a.platform ? "install" : "buy" })}
+          </p>
+        </div>
+        <div className="g3" style={gap("22px")}>
+          <div className="card pad col" style={gap("14px")}>
+            <div className="row" style={gap("12px")}>
+              <span className="tile tile-s" style={{ "--h": 250 } as CSSProperties} aria-hidden>
+                <Icon name="monitor" />
+              </span>
+              <h3 className="h4">{t("compatTitle")}</h3>
+            </div>
+            {clients.map((k) => (
+              <div key={k} className="row" style={gap("10px")}>
+                <span className="ok">
+                  <Icon name="check-circle" />
+                </span>
+                <b>{k}</b>
+              </div>
+            ))}
+            <p className="small muted">{t("compatNote")}</p>
+          </div>
+          <div className="card pad col" style={gap("14px")}>
+            <div className="row" style={gap("12px")}>
+              <span className="tile tile-s" style={{ "--h": 300 } as CSSProperties} aria-hidden>
+                <Icon name="plug" />
+              </span>
+              <h3 className="h4">{t("connectorsTitle")}</h3>
+            </div>
+            {connectors.length ? (
+              connectors.map((r) => (
+                <div key={r.label} className="col" style={gap("6px")}>
+                  <div className="row between" style={gap("12px")}>
+                    <b className="grow">{f.connectorName(r.label)}</b>
+                    {r.optional ? <span className="chip">{t("optional")}</span> : <span className="chip chip-warn">{t("connectNow")}</span>}
+                  </div>
+                  {r.howTo ? <p className="small muted" style={{ overflowWrap: "anywhere" }}>{r.howTo}</p> : null}
+                  {r.helpUrl ? (
+                    <a className="link small" href={r.helpUrl} target="_blank" rel="noopener noreferrer">
+                      {t("officialHelp")}
+                    </a>
+                  ) : null}
+                </div>
+              ))
+            ) : (
+              <b>{t("none")}</b>
+            )}
+            <p className="small muted">
+              {connectors.length ? t("connectorsNote") : t("noConnectorsNote")}
+            </p>
+          </div>
+          <div className="card pad col" style={gap("14px")}>
+            <div className="row" style={gap("12px")}>
+              <span className="tile tile-s" style={{ "--h": 150 } as CSSProperties} aria-hidden>
+                <Icon name="card" />
+              </span>
+              <h3 className="h4">{t("planTitle")}</h3>
+            </div>
+            <b>{plan ?? t("anyPlan")}</b>
+            <p className="small muted">{plan ? t("planByCreator") : t("planNone")} {t("planNote")}</p>
+          </div>
+        </div>
+      </section>
+
+      {a.packageContents.length ? (
+        <section className="wrap" style={{ paddingBottom: 64 }}>
+          <div className="col" style={gap("8px", { marginBottom: 26 })}>
+            <h2 className="display h2s">{t("packageTitle")}</h2>
+          </div>
+          <div className={`g${packCols(a.packageContents.length)} m1`} style={gap("16px")}>
+            {a.packageContents.map((t, i) => {
+              const s = PACK[i % PACK.length] ?? PACK[0]!;
+              return (
+                <div key={t} className="card pad-s col" style={gap("12px")}>
+                  <span className="tile tile-s" style={{ "--h": s.hue } as CSSProperties} aria-hidden>
+                    <Icon name={s.icon} />
+                  </span>
+                  <p className="small">{t}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      {d.versions.length ? (
+        <section className="wrap" style={{ paddingBottom: 64 }}>
+          <div className="row between end wrapx" style={gap("12px", { marginBottom: 26 })}>
+            <h2 className="display h2s">{t("versionsTitle")}</h2>
+            <span className="small muted">{t("versionsNote")}</span>
+          </div>
+          <Versions versions={d.versions} />
+        </section>
+      ) : null}
+
+      <section id="avaliar" className="wrap" style={{ paddingBottom: 24, scrollMarginTop: 24 }}>
+        <div className="row between end wrapx" style={gap("12px", { marginBottom: 26 })}>
+          <h2 className="display h2s">{t("reviewsTitle")}</h2>
+          <span className="verified">
+            <Icon name="shield-check" size="s" />
+            {t("allVerified")}
+          </span>
+        </div>
+        <Reviews slug={a.slug} initial={d.reviews} total={Math.max(a.reviewsCount, d.reviews.length)} />
+      </section>
+    </>
+  );
+}

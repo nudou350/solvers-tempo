@@ -1,0 +1,17 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "scripts"
+  - "e2e-browser"
+# contracts/ is a Foundry project, not a pnpm package.
+
+# X3 (docs/migration/decisions.md): @privy-io/react-auth depends on x402 (only for its x402 fetch hook, which the web
+# never calls); x402 pulls the previous chain's SDK packages and wagmi. Removed here; its lazy `import("x402/client")`
+# inside Privy is aliased to an empty module in apps/web/next.config.ts. Privy's viem pin (2.56.5) is lifted to the
+# workspace viem so the Tempo serializer and Privy's account types come from one copy.
+autoInstallPeers: false
+
+overrides:
+  x402: "-"
+  "@privy-io/react-auth>viem": "^2.57.4"
+  "@privy-io/are-addresses-equal>viem": "^2.57.4"

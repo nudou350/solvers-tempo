@@ -1,0 +1,33 @@
+/* Checkout and install area additions. Same tokens as sv.css. */
+
+.pix { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; align-items: start; }
+.qrBox { position: relative; width: 216px; height: 216px; padding: 8px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; }
+.qrBox img { width: 200px; height: 200px; image-rendering: pixelated; }
+.stamp { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-12deg); padding: 6px 14px; border-radius: 10px; background: var(--amber); color: #fff; font-weight: 800; letter-spacing: .12em; font-size: 15px; box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .35); }
+.status { display: flex; align-items: center; gap: 10px; }
+.counter { align-self: flex-end; }
+.msAmount { white-space: nowrap; }
+.idLine { min-width: 0; }
+.idLine b, .idLine div { overflow-wrap: anywhere; }
+
+/* Setup illustration: a settings window with the menu on the left and the highlighted button. */
+.illGrid { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); min-height: 150px; }
+.illSide { padding: 14px; border-right: 1px solid var(--line); }
+.illMain { padding: 18px; }
+.illMain .illBtn { align-self: flex-start; max-width: 100%; min-height: 40px; height: auto; padding: 8px 14px; font-size: 13px; line-height: 1.25; white-space: normal; text-align: left; justify-content: flex-start; }
+
+@container sv (max-width: 700px) {
+  /* Phone: the menu becomes a strip on top and the panel uses the full width (the button fits with the "+"). */
+  .illGrid { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .illGrid .illSide { flex-direction: row; align-items: center; padding: 10px 12px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .illSide > :global(.skel) { flex: 1 1 0; min-width: 0; }
+  .illSide > :global(.skel):last-child { display: none; }
+  .illSide > :global(.ill-hi) { flex: none; }
+  .illMain { padding: 14px 12px; }
+  .pix { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .pix > :last-child { justify-self: stretch; }
+}
+
+/* Help request to the creator (HelpDialog; the window itself is ui/Dialog). */
+.helpForm { display: flex; flex-direction: column; gap: 16px; }
+.helpLink { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; cursor: pointer; }

@@ -1,0 +1,26 @@
+{
+  "id": "01-cronograma-5-semanas",
+  "input": "I am moving in 5 weeks, I rent a 2-bedroom apartment and I have never organized a move. Where do I start?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "notice period|notice to (the )?(landlord|agency)",
+      "description": "Content: reminds about the rental notice period, which the method puts first"
+    },
+    {
+      "type": "regex",
+      "value": "critical|priorit",
+      "description": "Method: highlights the critical tasks of the schedule"
+    },
+    {
+      "type": "regex",
+      "value": "week",
+      "description": "Method: organizes by deadline windows in weeks"
+    },
+    {
+      "type": "not_contains",
+      "value": "don't worry about it",
+      "description": "Anti: does not downplay the moving deadline"
+    }
+  ]
+}

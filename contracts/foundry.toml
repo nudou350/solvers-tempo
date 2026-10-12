@@ -1,0 +1,57 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+# Tempo network semantics (TIP-20 precompiles, Tempo gas schedule) for forge test/script.
+# https://tempo.xyz/developers/docs/sdk/foundry
+tempo = true
+evm_version = "osaka"
+solc = "0.8.30"
+optimizer = true
+optimizer_runs = 200
+via_ir = false
+# openzeppelin-foundry-upgrades validation needs these (https://github.com/OpenZeppelin/openzeppelin-foundry-upgrades)
+ffi = true
+ast = true
+build_info = true
+extra_output = ["storageLayout"]
+fs_permissions = [
+  { access = "read-write", path = "../deployments" },
+  { access = "read", path = "./out" },
+  { access = "read", path = "./reference-build" },
+]
+
+[lint]
+# Excluded with reasons (reviewed in docs/migration/phase-2.md):
+# - reentrancy-events: every flagged event follows a call to our own SolversRegistry/satellites or to the TIP-20
+#   precompile, neither of which calls back into user code; every state-changing entry point is nonReentrant.
+# - block-timestamp: deadlines, review windows and slash/exit delays are protocol semantics measured in hours/days;
+#   Tempo's ~0.5 s deterministic finality leaves no meaningful manipulation window.
+# - unsafe-typecast: each cast is bounded (uint40 timestamps, uint96 amounts derived from uint96 inputs, uint8 milestone
+#   counts <= 5) and covered by tests.
+exclude_lints = ["reentrancy-events", "block-timestamp", "unsafe-typecast"]
+
+[profile.default.fuzz]
+runs = 256
+
+[profile.ci.fuzz]
+runs = 2000
+
+[profile.ci.invariant]
+runs = 256
+depth = 64
+
+[fmt]
+line_length = 120
+tab_width = 4
+bracket_spacing = false
+int_types = "long"
+quote_style = "double"
+number_underscore = "thousands"
+
+[rpc_endpoints]
+moderato = "https://rpc.moderato.tempo.xyz"
+tempo = "https://rpc.tempo.xyz"
+local = "http://127.0.0.1:8545"

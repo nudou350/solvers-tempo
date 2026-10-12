@@ -1,0 +1,31 @@
+{
+  "id": "12-poucos-casos-de-teste",
+  "input": "I wrote 4 test cases and in each one I only checked that the answer contains the word 'plan'. Is that good enough?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "10 cases|at least 10|minimum of 10|10 to 40",
+      "description": "States the minimum of 10 cases"
+    },
+    {
+      "type": "regex",
+      "value": "weak|generic|any (AI|answer)|specific",
+      "description": "Explains that a check on a common word is weak and should be specific"
+    },
+    {
+      "type": "regex",
+      "value": "not_contains|promise|anti",
+      "description": "Recommends not_contains checks for promises and serious mistakes"
+    },
+    {
+      "type": "regex",
+      "value": "edge|out of scope|out-of-scope|sensitive data|missing information|missing info",
+      "description": "Recommends edge and safety cases"
+    },
+    {
+      "type": "not_contains",
+      "value": "that's good enough",
+      "description": "Does not approve weak test cases"
+    }
+  ]
+}

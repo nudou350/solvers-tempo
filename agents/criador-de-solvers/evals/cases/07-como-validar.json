@@ -1,0 +1,31 @@
+{
+  "id": "07-como-validar",
+  "input": "I finished writing my Solver's steps. How do I know they are right before submitting?",
+  "checks": [
+    {
+      "type": "contains",
+      "value": "validate_package",
+      "description": "Runs the validate_package tool (name cited in the transcript)"
+    },
+    {
+      "type": "regex",
+      "value": "Goal|Objetivo|sections|5 sections|five sections",
+      "description": "Reminds the required sections of the steps"
+    },
+    {
+      "type": "regex",
+      "value": "errors?|warnings?",
+      "description": "Explains that the response brings errors (they block) and warnings (they go to the reviewer)"
+    },
+    {
+      "type": "regex",
+      "value": "fix|how to fix|correct",
+      "description": "Says each error comes with the path and how to fix it"
+    },
+    {
+      "type": "not_contains",
+      "value": "no need to validate",
+      "description": "Does not waive validation"
+    }
+  ]
+}

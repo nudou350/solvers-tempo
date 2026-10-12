@@ -1,0 +1,26 @@
+{
+  "id": "04-vistoria-de-saida",
+  "input": "I am handing back my rented apartment on Friday. How do I prepare for the move-out inspection?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "photo|video|film",
+      "description": "Content: records the rooms with photos or video"
+    },
+    {
+      "type": "regex",
+      "value": "meter|reading",
+      "description": "Content: notes the electricity, water and gas meter readings"
+    },
+    {
+      "type": "regex",
+      "value": "move-in (report|inspection)|entry (report|inspection)|check-in report|inventory report",
+      "description": "Method: compares with the move-in report or inspection"
+    },
+    {
+      "type": "regex",
+      "value": "in writing|written|signed|sign",
+      "description": "Method: asks for the result of the inspection in writing"
+    }
+  ]
+}

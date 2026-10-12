@@ -1,0 +1,52 @@
+node_modules/
+dist/
+.turbo/
+.next/
+coverage/
+*.tsbuildinfo
+
+# secrets: keys and env files never enter git (see infra/.env.example)
+.env
+.env.*
+!.env.example
+.keys/
+keys/
+*.key
+
+# runtime data
+deliverables/
+.qa-data/
+# server runtime files: published packages and creator submissions (PUBLISHED_DIR, SUBMISSIONS_DIR)
+apps/server/data/
+output/
+design/Solver.bundle.html
+.DS_Store
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/**/dry-run/
+# local anvil broadcasts
+contracts/broadcast/*/31337/
+contracts/lcov.info
+# reference builds of deployed commits for upgrade validation (X16; script/reference-build.sh regenerates them)
+contracts/reference-build/
+
+# local anvil deployment (regenerated on every local deploy)
+**/deployments/31337.json
+
+# machine-specific agent notes (local paths)
+CLAUDE.local.md
+
+# agent worktrees
+/.claude/worktrees/
+contracts/out-*/
+contracts/cache-*/
+contracts/broadcast/**/*.recovery.lock
+
+# browser e2e sessions (docs/browser-e2e-plan.md)
+e2e-browser/.auth/
+
+# browser e2e run artefacts (reports, traces, videos, test data of the local QA stack)
+e2e-browser/report/
+e2e-browser/.cache/

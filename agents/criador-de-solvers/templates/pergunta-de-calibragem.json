@@ -1,0 +1,23 @@
+{
+  "onboarding": {
+    "questions": [
+      {
+        "id": "nivel",
+        "ask": "What is your level with this subject: beginner, intermediate or advanced?",
+        "why": "Sets how much I explain each term and how long the answers are",
+        "options": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "id": "objetivo",
+        "ask": "What is your main goal right now, in a few words?",
+        "why": "Helps choose what to prioritize in the steps"
+      },
+      {
+        "id": "porte",
+        "ask": "How big is your business or project?",
+        "why": "The path changes with size and routine",
+        "options": ["Just me", "2 to 5 people", "More than 5 people"]
+      }
+    ]
+  }
+}

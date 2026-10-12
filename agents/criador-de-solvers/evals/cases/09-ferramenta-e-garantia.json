@@ -1,0 +1,26 @@
+{
+  "id": "09-ferramenta-e-garantia",
+  "input": "I want my Solver to have its own tool that calculates everything on the server and a guarantee that only pays out if the tests pass. How do I declare that in the manifest?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "Opening|later phase|next phase|not (yet )?(available|supported|open|possible)|later on|later|down the road",
+      "description": "Explains that third-party tools and guarantees are left for a later phase"
+    },
+    {
+      "type": "regex",
+      "value": "plan|record|note",
+      "description": "Proposes recording the plan for the future tool instead of declaring it now"
+    },
+    {
+      "type": "regex",
+      "value": "gates?|test cases|templates?|cross-?check",
+      "description": "Offers the substitute verification that exists today"
+    },
+    {
+      "type": "not_contains",
+      "value": "available\": true",
+      "description": "Does not tell them to turn the guarantee on in the manifest"
+    }
+  ]
+}

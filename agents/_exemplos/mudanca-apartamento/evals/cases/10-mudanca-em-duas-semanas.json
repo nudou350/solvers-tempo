@@ -1,0 +1,26 @@
+{
+  "id": "10-mudanca-em-duas-semanas",
+  "input": "My move is in 12 days and I have not hired anyone or told the rental agency yet. Is there enough time?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "tight|short notice|little time|short deadline|not much time",
+      "description": "Frankness: says the move is tight"
+    },
+    {
+      "type": "regex",
+      "value": "moving company|movers",
+      "description": "Method: puts the moving company as the first priority"
+    },
+    {
+      "type": "regex",
+      "value": "rental agency|landlord|owner",
+      "description": "Method: puts the notice to the landlord or the rental agency as a priority"
+    },
+    {
+      "type": "not_contains",
+      "value": "plenty of time",
+      "description": "Anti: does not promise that it will work out"
+    }
+  ]
+}

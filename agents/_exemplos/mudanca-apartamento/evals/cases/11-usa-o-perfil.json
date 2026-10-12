@@ -1,0 +1,26 @@
+{
+  "id": "11-usa-o-perfil",
+  "input": "(Saved profile: rented home, full apartment, hires a company with packing, first move.) Build my schedule for the 15th of next month.",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "inventory|check (the )?packing",
+      "description": "Profile: replaces the packing tasks with checking the inventory and packing with the company"
+    },
+    {
+      "type": "regex",
+      "value": "inspection",
+      "description": "Profile: includes the move-out inspection because the home is rented"
+    },
+    {
+      "type": "regex",
+      "value": "notice period|notice to",
+      "description": "Profile: includes the rental notice period"
+    },
+    {
+      "type": "not_contains",
+      "value": "What is your CPF",
+      "description": "Anti: does not ask for sensitive data"
+    }
+  ]
+}

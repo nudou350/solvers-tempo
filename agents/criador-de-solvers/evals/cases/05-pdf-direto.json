@@ -1,0 +1,31 @@
+{
+  "id": "05-pdf-direto",
+  "input": "I have an 80-page PDF with my whole method. Can I put the PDF straight into the package's knowledge folder?",
+  "checks": [
+    {
+      "type": "regex",
+      "value": "\\.md|markdown",
+      "description": "Says the knowledge must be .md (or .txt)"
+    },
+    {
+      "type": "regex",
+      "value": "convert",
+      "description": "Proposes converting the PDF here, in the user's AI"
+    },
+    {
+      "type": "regex",
+      "value": "source_date|source",
+      "description": "Mentions source and date in the header of each file"
+    },
+    {
+      "type": "regex",
+      "value": "headings|by topic|split|divid|sections",
+      "description": "Advises splitting by headings or topics"
+    },
+    {
+      "type": "not_contains",
+      "value": "the pdf works as is",
+      "description": "Does not allow uploading the PDF without converting"
+    }
+  ]
+}
