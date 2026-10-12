@@ -24,7 +24,7 @@ forge test                                   # unit, matrices, fuzz (256 runs)
 FOUNDRY_PROFILE=ci forge test                # fuzz 2000, invariants 256 x 64 (as CI)
 forge snapshot --check --no-match-path 'test/invariant/*' --no-match-test 'Fuzz|fuzz'
 node script/check-layouts.mjs                # UUPS storage append-only (--write only after a reviewed change)
-forge build --sizes --skip test              # every contract < 24,576 bytes
+forge build --sizes --skip test --skip 'test/**'   # every contract < 24,576 bytes (test helpers excluded)
 bash script/e2e-anvil.sh                     # fresh anvil --tempo on port 8547 (ANVIL_PORT): validated deploy + sponsored flows
 ```
 

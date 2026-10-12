@@ -38,7 +38,7 @@ jobs:
       - name: Format
         run: forge fmt --check src script test
       - name: Build (contract sizes must stay under 24,576 bytes)
-        run: forge build --sizes --skip test
+        run: forge build --sizes --skip test --skip 'test/**'
       - name: Tests (ci profile)
         env:
           FOUNDRY_PROFILE: ci
